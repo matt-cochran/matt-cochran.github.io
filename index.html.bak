@@ -80,6 +80,11 @@
                           target="_blank" class="c-social-button  t-social-button">
                         </a> <br>
                       </li>
+                      <li class="a-header"> <a href="https://twitter.com/_Ruven"
+
+                          target="_blank" class="c-social-button  t-social-button">
+                        </a> <br>
+                      </li>
                     </ul>
                     <!-- /c-header__social-buttons --> </div>
                   <!-- /c-header__top -->
@@ -542,6 +547,11 @@
                   <!-- /c-footer__brand -->
                   <ul class="c-footer__social-buttons  c-social-buttons  o-content__body">
                     <li class="a-footer"> <a href="https://www.linkedin.com/in/matthew-cochran-1a02b119/"
+
+                        target="_blank" class="c-social-button  t-social-button">
+                        </a> <br>
+                    </li>
+                    <li class="a-footer"> <a href="https://twitter.com/_Ruven"
 
                         target="_blank" class="c-social-button  t-social-button">
                       </a> <br>
