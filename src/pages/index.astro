@@ -1,0 +1,159 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+---
+
+<BaseLayout
+  title="Matthew Cochran — Scale Readiness Validation for Series A SaaS"
+  description="Scale Readiness Validation for Series A SaaS. Validate you're ready to scale—architecture and market focus—before committing more headcount and budget."
+>
+  <!-- Hero: image column only as wide as photo so text sits next to it (no dead space) -->
+  <section class="border-b border-[var(--color-border)] bg-[var(--color-surface)]">
+    <div class="mx-auto flex max-w-[min(1440px,92vw)] flex-col px-6 py-10 md:px-14 md:py-12 lg:flex-row lg:items-center lg:gap-8">
+      <div class="shrink-0">
+        <div class="mx-auto w-36 overflow-hidden rounded-2xl bg-[var(--color-surface-alt)] shadow-lg lg:mx-0 lg:w-44" style="aspect-ratio: 4/5;">
+          <img
+            src="/assets/images/MC-headshot.png"
+            alt="Matthew Cochran"
+            class="h-full w-full object-contain object-center"
+          />
+        </div>
+      </div>
+      <div class="mt-6 min-w-0 flex-1 lg:mt-0">
+        <h1 class="text-3xl font-light leading-tight md:text-4xl lg:text-[2.5rem]">
+          <span class="lowercase text-[var(--color-text-headline)]">Scale Readiness Validation</span>
+          <span class="mt-1 block uppercase font-bold tracking-wide text-[var(--color-primary)]">for Series A SaaS</span>
+        </h1>
+        <p class="mt-4 max-w-xl text-base leading-relaxed text-[var(--color-text)] md:text-lg">
+          I help Series A teams validate they're ready to scale—across architecture and market focus—before they commit more headcount and budget.
+        </p>
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+          <a
+            href="/snapshot/"
+            class="inline-block rounded border-2 border-[var(--color-primary)] px-6 py-3 text-[var(--color-text-emphasis)] no-underline transition-colors hover:bg-[var(--color-primary)]/10 hover:text-[var(--color-primary)]"
+          >
+            Take the Scale Readiness Snapshot
+          </a>
+          <a href="#offer" class="text-[var(--color-text-emphasis)] hover:text-[var(--color-primary)]">What you get (4–6 week diagnostic)</a>
+        </div>
+        <div class="mt-4">
+          <a
+            href="https://linkedin.com/in/matthew-cochran-1a02b119"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex h-10 w-10 items-center justify-center rounded border border-[var(--color-border)] bg-[var(--color-surface-alt)] text-[var(--color-muted)] hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-primary)]"
+            aria-label="LinkedIn"
+          >
+            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Section heading="Who this is for" description="Series A SaaS with real scaling pressure">
+    <div class="max-w-[65ch]">
+    <p><strong>Best fit:</strong> Series A SaaS, 10–50 engineers, hiring or planning to hire VP Eng / Head of Eng, recently raised or under growth pressure.</p>
+    <p>You feel velocity drag, cross-team friction, architecture instability, roadmap confusion, or fear of scaling wrong.</p>
+    <p><strong>Not a fit:</strong> Pre-seed or still exploring product-market fit. Hands-on dev staffing needs. No decision authority or budget intent within the next 60 days.</p>
+    <p class="mt-6">If that describes you, the next step is the <a href="/snapshot/">Scale Readiness Snapshot</a>—a short questionnaire to see if we should talk.</p>
+    </div>
+  </Section>
+
+  <Section heading="You may not be scale-ready if…" description="Recognition signals before you commit more headcount">
+    <div class="max-w-[65ch]">
+    <ul class="list-none space-y-3 pl-0">
+      <li>Feature work keeps turning into foundational changes.</li>
+      <li>Normal changes spill across services or contracts.</li>
+      <li>Hiring isn't increasing velocity.</li>
+      <li>Roadmap feels noisy; validation is inconsistent.</li>
+      <li>Releases feel risky; regressions are rising.</li>
+    </ul>
+    <p class="mt-4">If several of these ring true, a <a href="/snapshot/">Scale Readiness Snapshot</a> can clarify whether a full diagnostic makes sense.</p>
+    </div>
+  </Section>
+
+  <Section id="offer" heading="Scale Readiness Diagnostic (4–6 weeks)" description="Structured validation before you scale">
+    <div class="max-w-[65ch]">
+    <p>Outcome: clarity on what will break when you scale—and what must change first.</p>
+    <h3 class="mt-6 text-lg font-semibold">Deliverables</h3>
+    <ol class="list-decimal pl-6">
+      <li><strong>Structural Scaling Map</strong> — Blast and coupling risk, boundary risk zones, where hiring amplifies fragility.</li>
+      <li><strong>Market Resonance Risk Map</strong> — ICP clarity, feature-to-ICP alignment gaps, roadmap and pre-sell signal gaps.</li>
+      <li><strong>Scale Readiness Blueprint</strong> — What must change before scaling, what to kill, what to double down on, hiring sequencing.</li>
+    </ol>
+    <h3 class="mt-6 text-lg font-semibold">Boundaries (this is not)</h3>
+    <ul class="list-disc pl-6">
+      <li>Staff augmentation or implementation retainer.</li>
+      <li>Ongoing fractional CTO or refactoring work.</li>
+      <li>Strategy workshops without a concrete deliverable.</li>
+    </ul>
+    <p class="mt-4">It is a time-bound, decision-grade validation before scaling decisions. I run a limited number of diagnostics at a time.</p>
+    <p class="mt-6">Engagements typically start at $25k+. <a href="/scale-readiness/">More detail</a> · <a href="/snapshot/">Take the Snapshot</a></p>
+    </div>
+  </Section>
+
+  <Section heading="Scale readiness in practice" description="Where validation changed the outcome">
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <div class="border-t-2 border-[var(--color-primary)] pt-4">
+        <h3 class="text-lg font-semibold text-[var(--color-text-headline)]">Product &amp; roadmap alignment</h3>
+        <p class="mt-2 text-sm"><strong>Context:</strong> B2B product company; no formal product strategy; roadmap and validation were inconsistent.</p>
+        <p class="mt-1 text-sm"><strong>Scale risk:</strong> Adding headcount would have amplified misalignment.</p>
+        <p class="mt-1 text-sm"><strong>Intervention:</strong> Introduced a customer-centric product practice and aligned product, development, and quality around a clear strategy.</p>
+        <p class="mt-1 text-sm"><strong>Result:</strong> UX and product decisions became data-driven and customer-backed; team could scale with a shared direction.</p>
+      </div>
+      <div class="border-t-2 border-[var(--color-primary)] pt-4">
+        <h3 class="text-lg font-semibold text-[var(--color-text-headline)]">Infrastructure &amp; resilience</h3>
+        <p class="mt-2 text-sm"><strong>Context:</strong> Art-tech, mission-critical ops; 600+ undocumented virtual servers, single-point dependency, no remote capability.</p>
+        <p class="mt-1 text-sm"><strong>Scale risk:</strong> Any growth or crisis would have collapsed operations.</p>
+        <p class="mt-1 text-sm"><strong>Intervention:</strong> Migrated to cloud, consolidated to a manageable footprint, established disaster recovery. <a href="https://www.prnewswire.com/news-releases/itopia-empowers-artnet-to-streamline-mission-critical-vdi-on-google-cloud-301170072.html" target="_blank" rel="noopener noreferrer">Project</a> completed in 2 months under active threat with zero downtime.</p>
+        <p class="mt-1 text-sm"><strong>Result:</strong> In-house managed, tested DR, workforce fully remote-capable.</p>
+      </div>
+      <div class="border-t-2 border-[var(--color-primary)] pt-4">
+        <h3 class="text-lg font-semibold text-[var(--color-text-headline)]">Deployment &amp; ops at scale</h3>
+        <p class="mt-2 text-sm"><strong>Context:</strong> Same engagement; self-managed data centers, manual deployment and management.</p>
+        <p class="mt-1 text-sm"><strong>Scale risk:</strong> More teams and releases would have made manual processes the bottleneck.</p>
+        <p class="mt-1 text-sm"><strong>Intervention:</strong> Migrated run-time environments to cloud (GCP), moved to Infrastructure as Code.</p>
+        <p class="mt-1 text-sm"><strong>Result:</strong> 280x improvement in deployment and management efficiency. <a href="https://www.persistent.com/client-success/artnet-increases-efficiency-by-280x-as-they-move-to-google-cloud/" target="_blank" rel="noopener noreferrer">Case study</a>.</p>
+      </div>
+      <div class="border-t-2 border-[var(--color-primary)] pt-4">
+        <h3 class="text-lg font-semibold text-[var(--color-text-headline)]">Velocity &amp; architecture</h3>
+        <p class="mt-2 text-sm"><strong>Context:</strong> Same engagement; architecture and process were limiting delivery speed.</p>
+        <p class="mt-1 text-sm"><strong>Scale risk:</strong> Adding engineers would not have translated into proportionally more output.</p>
+        <p class="mt-1 text-sm"><strong>Intervention:</strong> Restructured architecture and development process, upgraded production systems.</p>
+        <p class="mt-1 text-sm"><strong>Result:</strong> 454% improvement in project execution velocity; 110x improvement in deployment velocity.</p>
+      </div>
+      <div class="border-t-2 border-[var(--color-primary)] pt-4">
+        <h3 class="text-lg font-semibold text-[var(--color-text-headline)]">Data &amp; single source of truth</h3>
+        <p class="mt-2 text-sm"><strong>Context:</strong> Enterprise data; mission-critical business information scattered; no single aggregated source.</p>
+        <p class="mt-1 text-sm"><strong>Scale risk:</strong> Growth would have increased inconsistency and rework.</p>
+        <p class="mt-1 text-sm"><strong>Intervention:</strong> Led modernization of data capabilities with cloud data lake, warehouse, and pipelining.</p>
+        <p class="mt-1 text-sm"><strong>Result:</strong> Single source of truth for mission-critical information; foundation for scaling analytics and reporting.</p>
+      </div>
+      <div class="border-t-2 border-[var(--color-primary)] pt-4">
+        <h3 class="text-lg font-semibold text-[var(--color-text-headline)]">Project governance &amp; ROI</h3>
+        <p class="mt-2 text-sm"><strong>Context:</strong> Same engagement; no formal project management; ad hoc requests and unclear ROI.</p>
+        <p class="mt-1 text-sm"><strong>Scale risk:</strong> More projects and people would have multiplied waste.</p>
+        <p class="mt-1 text-sm"><strong>Intervention:</strong> Established formal technical project management and standard operating procedures.</p>
+        <p class="mt-1 text-sm"><strong>Result:</strong> Project-centric approach; ability to kill low-ROI work and align investment with time, cost, and risk.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section heading="How it works" description="Snapshot → Fit call → Diagnostic">
+    <div class="max-w-[65ch]">
+    <ol class="list-decimal space-y-4 pl-6">
+      <li><strong>Take the Scale Readiness Snapshot</strong> — A 3-minute questionnaire on stage, team size, hiring plans, and where you feel scaling friction. You'll see quickly whether the diagnostic is a good fit; if it is, we schedule a short call.</li>
+      <li><strong>15-minute fit call</strong> — We align on your situation, timeline, and what you need. We decide together whether to move ahead with the diagnostic. No pitch, no obligation.</li>
+      <li><strong>Scale Readiness Diagnostic</strong> (4–6 weeks) — You get the Structural Scaling Map, Market Resonance Risk Map, and Scale Readiness Blueprint: clear priorities and next steps before you scale.</li>
+    </ol>
+    <p class="mt-6"><a href="/snapshot/">Take the Scale Readiness Snapshot</a></p>
+    </div>
+  </Section>
+
+  <Section heading="Background" description="Full resume and experience on the About page">
+    <div class="max-w-[65ch]">
+    <p>Matthew Cochran is Co-Founder at OutboundLabs. Former CTO at Artnet; previously Founder, CTO at TruthShield; senior leadership at Medidata, Shutterstock, and others. Twenty-five-plus years in product and technical leadership. <a href="/about/">About &amp; full experience</a>.</p>
+    </div>
+  </Section>
+</BaseLayout>

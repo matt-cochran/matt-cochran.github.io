@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<BaseLayout
+  title={`${post.data.title} — Matthew Cochran`}
+  description={post.data.description ?? post.data.title}
+>
+  <article class="border-b border-[var(--color-border)] bg-[var(--color-surface)]">
+    <div class="mx-auto max-w-[min(1440px,92vw)] px-6 py-10 md:px-14 md:py-12">
+      <header class="mb-8">
+        <h1 class="text-3xl font-bold text-[var(--color-text-headline)]">{post.data.title}</h1>
+        <time class="text-sm text-[var(--color-muted)]" datetime={post.data.pubDate.toISOString()}>
+          {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </time>
+      </header>
+      <div class="prose prose-invert max-w-[65ch] text-[var(--color-text)] leading-relaxed [&_a]:text-[var(--color-primary)] [&_a:hover]:text-[var(--color-primary-hover)] [&_h2]:mt-8 [&_h2]:mb-2 [&_h2]:text-[var(--color-text-headline)] [&_h3]:mt-6 [&_h3]:mb-2 [&_h3]:text-[var(--color-text-headline)] [&_p]:mb-5 [&_ul]:mb-5 [&_ol]:mb-5">
+        <Content />
+      </div>
+      <p class="mt-8 text-sm"><a href="/blog/">← Blog</a> · <a href="/">Home</a></p>
+    </div>
+  </article>
+</BaseLayout>

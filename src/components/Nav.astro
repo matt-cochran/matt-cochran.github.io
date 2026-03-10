@@ -1,0 +1,30 @@
+---
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/scale-readiness/', label: 'Scale Readiness' },
+  { href: '/snapshot/', label: 'Take the Snapshot' },
+  { href: '/about/', label: 'About' },
+  { href: '/blog/', label: 'Blog' },
+];
+---
+
+<nav class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-surface)]/98" aria-label="Main">
+  <div class="mx-auto flex max-w-[min(1440px,92vw)] flex-wrap items-center justify-between gap-4 px-7 py-3.5">
+    <a href="/" class="text-lg font-bold tracking-wide no-underline group">
+      <span class="text-[var(--color-text-headline)] group-hover:text-[var(--color-text-inverse)]">Matthew </span>
+      <span class="text-[var(--color-primary)] group-hover:text-[var(--color-primary-hover)]">Cochran</span>
+    </a>
+    <ul class="flex flex-wrap items-center gap-6 list-none p-0 m-0">
+      {navLinks.map(({ href, label }) => (
+        <li>
+          <a
+            href={href}
+            class="text-[0.9375rem] text-[var(--color-text-emphasis)] no-underline py-1 border-b-2 border-transparent transition-colors hover:text-[var(--color-primary)] hover:border-[var(--color-primary)]"
+          >
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</nav>

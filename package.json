@@ -1,0 +1,16 @@
+{
+  "name": "matt-cochran.github.io",
+  "type": "module",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "npx astro dev",
+    "build": "npm run copy-assets && npx astro build",
+    "preview": "npx astro preview",
+    "copy-assets": "node -e \"require('fs').cpSync('assets', 'public/assets', {recursive: true})\""
+  },
+  "dependencies": {
+    "astro": "^5.0.0",
+    "@tailwindcss/vite": "^4.0.0",
+    "tailwindcss": "^4.0.0"
+  }
+}

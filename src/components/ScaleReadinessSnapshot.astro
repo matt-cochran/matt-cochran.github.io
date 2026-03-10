@@ -1,0 +1,429 @@
+---
+/**
+ * Scale Readiness Snapshot — one-question-per-step wizard (reduces cognitive load).
+ * Booking link injected only for qualified; every outcome gets a clear next step.
+ *
+ * Config: src/lib/snapshotConfig.ts (booking URL, disqualified resource e.g. Resoniche, manual-review CTA).
+ * Integration: see script submit handler for CRM, analytics, email capture.
+ */
+import { SNAPSHOT_QUESTIONS } from '../lib/snapshotQuestions';
+import { SNAPSHOT_CONFIG } from '../lib/snapshotConfig';
+
+const TOTAL_STEPS = SNAPSHOT_QUESTIONS.length + 1; // step 7 = outcome (Calendly or email)
+const BOOKING_URL = SNAPSHOT_CONFIG.bookingUrl;
+const CALENDLY_WIDGET_URL = SNAPSHOT_CONFIG.calendlyWidgetUrl;
+const EARLY_STAGE_URL = SNAPSHOT_CONFIG.earlyStageResourceUrl;
+const EARLY_STAGE_LABEL = SNAPSHOT_CONFIG.earlyStageResourceLabel;
+const MANUAL_CTA_URL = SNAPSHOT_CONFIG.manualReviewCtaUrl;
+const MANUAL_CTA_LABEL = SNAPSHOT_CONFIG.manualReviewCtaLabel;
+const FOLLOW_UP_FORM_ENDPOINT = SNAPSHOT_CONFIG.followUpFormEndpoint;
+---
+
+<div class="snapshot-form-wrapper max-w-[65ch]">
+  <noscript class="mb-6 block rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-4 text-[var(--color-text)]">
+    <strong class="text-[var(--color-text-headline)]">This form requires JavaScript.</strong>
+    <p class="mt-2 text-sm">Please enable JavaScript to complete the Scale Readiness Snapshot, or <a href="/scale-readiness" class="text-[var(--color-primary)] underline">learn about the diagnostic</a> and reach out directly.</p>
+  </noscript>
+
+  <form
+    id="scale-readiness-snapshot-form"
+    class="snapshot-form"
+    aria-label="Scale Readiness Snapshot"
+    noValidate
+  >
+    <p class="mb-6 text-sm text-[var(--color-text)]" aria-hidden="true">
+      One question at a time. Choose one to continue—no trick questions.
+    </p>
+
+    <div id="snapshot-progress" class="mb-6 text-sm text-[var(--color-muted)]" aria-live="polite">
+      Step <span id="snapshot-step-current">1</span> of {TOTAL_STEPS}
+    </div>
+
+    <!-- Wizard: one step visible at a time to reduce cognitive load. First step has data-visible so it's clickable before JS runs. -->
+    <div id="snapshot-steps" class="relative min-h-[200px]">
+      {SNAPSHOT_QUESTIONS.map((q, i) => (
+        <fieldset
+          class="snapshot-fieldset snapshot-step absolute inset-x-0 top-0 border-0 p-0 transition-opacity duration-200 data-[visible]:relative data-[visible]:opacity-100"
+          data-question={q.name}
+          data-step={i + 1}
+          data-visible={i === 0 ? 'true' : undefined}
+          aria-hidden={i !== 0}
+        >
+          <legend class="mb-3 text-[var(--color-text-headline)] font-medium">
+            {q.label}
+          </legend>
+          {q.prompt && (
+            <p class="mb-3 text-sm text-[var(--color-text)]">{q.prompt}</p>
+          )}
+          <div class="flex flex-col gap-2" role="group" aria-label={q.label}>
+            {q.options.map((opt) => (
+              <label class="snapshot-option-label flex cursor-pointer items-center gap-3 rounded border border-[var(--color-border)] bg-[var(--color-surface-alt)] px-4 py-3 transition-colors has-[:checked]:border-[var(--color-primary)] has-[:checked]:bg-[var(--color-primary)]/10">
+                <input
+                  type="radio"
+                  name={q.name}
+                  value={opt.value}
+                  required={q.required}
+                  class="h-4 w-4 min-w-[1rem] border-[var(--color-border)] text-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]"
+                />
+                <span class="text-[var(--color-text)]">{opt.label}</span>
+              </label>
+            ))}
+          </div>
+          <p id={`${q.name}-error`} class="snapshot-field-error mt-2 hidden text-sm text-[var(--color-error)]" role="alert">
+            Please select one.
+          </p>
+        </fieldset>
+      ))}
+      <!-- Step 7: outcome (Calendly or follow-up) — filled by script when entering this step -->
+      <div
+        id="snapshot-step-outcome"
+        class="snapshot-fieldset snapshot-step absolute inset-x-0 top-0 border-0 p-0 transition-opacity duration-200 data-[visible]:relative data-[visible]:opacity-100"
+        data-step="7"
+        aria-hidden="true"
+        role="status"
+        aria-live="polite"
+        tabindex="-1"
+      >
+        <div id="snapshot-step-outcome-content"></div>
+      </div>
+    </div>
+
+    <p class="mb-6 mt-8 text-xs text-[var(--color-muted)]">
+      Your responses are used only to determine fit and are not shared externally.
+    </p>
+
+    <div class="flex flex-wrap gap-3">
+      <button
+        type="button"
+        id="snapshot-back-btn"
+        class="rounded border border-[var(--color-border)] px-6 py-3 font-medium text-[var(--color-text)] transition-colors hover:bg-[var(--color-surface-alt)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary)] hidden"
+        aria-label="Previous question"
+      >
+        Back
+      </button>
+      <button
+        type="button"
+        id="snapshot-next-btn"
+        class="rounded border-2 border-[var(--color-primary)] px-6 py-3 font-medium text-[var(--color-text-emphasis)] transition-colors hover:bg-[var(--color-primary)]/10 hover:text-[var(--color-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary)]"
+      >
+        Next
+      </button>
+    </div>
+  </form>
+
+</div>
+
+<script define:vars={{ bookingUrl: BOOKING_URL, calendlyWidgetUrl: CALENDLY_WIDGET_URL, earlyStageUrl: EARLY_STAGE_URL, earlyStageLabel: EARLY_STAGE_LABEL, manualCtaUrl: MANUAL_CTA_URL, manualCtaLabel: MANUAL_CTA_LABEL, totalSteps: TOTAL_STEPS, followUpFormEndpoint: FOLLOW_UP_FORM_ENDPOINT }}>
+  function qualify(answers) {
+    const q5 = answers.decisionAuthority ?? '';
+    const q6 = answers.budgetIntent ?? '';
+    if (q5 === 'no' || q6 === 'no') return 'disqualified';
+    if (q5 === 'yes-primary') return 'qualified';
+    if (q5 === 'shared') {
+      if (q6 === 'yes') return 'qualified';
+      if (q6 === 'possibly') return 'manual_review';
+    }
+    return 'disqualified';
+  }
+
+  const form = document.getElementById('scale-readiness-snapshot-form');
+  const outcomeContentEl = document.getElementById('snapshot-step-outcome-content');
+  const stepCurrentEl = document.getElementById('snapshot-step-current');
+  const stepsContainer = document.getElementById('snapshot-steps');
+  const backBtn = document.getElementById('snapshot-back-btn');
+  const nextBtn = document.getElementById('snapshot-next-btn');
+
+  if (!form || !outcomeContentEl || !stepCurrentEl || !stepsContainer || !backBtn || !nextBtn) return;
+
+  const steps = Array.from(stepsContainer.querySelectorAll('.snapshot-step'));
+  let currentStep = 1;
+  let autoAdvanceTimeout = null;
+  const AUTO_ADVANCE_DELAY_MS = 400;
+
+  function setStep(step) {
+    currentStep = Math.max(1, Math.min(step, totalSteps));
+    stepCurrentEl.textContent = String(currentStep);
+    steps.forEach((el, i) => {
+      const isVisible = i + 1 === currentStep;
+      if (isVisible) el.setAttribute('data-visible', 'true');
+      else el.removeAttribute('data-visible');
+      el.setAttribute('aria-hidden', String(!isVisible));
+    });
+    backBtn.classList.toggle('hidden', currentStep === 1 || currentStep === totalSteps);
+    nextBtn.classList.toggle('hidden', currentStep === totalSteps);
+    if (currentStep === totalSteps) renderOutcomeStep();
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const visibleEl = steps[currentStep - 1];
+    if (visibleEl) visibleEl.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest' });
+    if (currentStep === totalSteps && visibleEl) visibleEl.focus();
+  }
+
+  function getCurrentFieldset() {
+    return steps[currentStep - 1] || null;
+  }
+
+  function isCurrentStepValid() {
+    const fs = getCurrentFieldset();
+    if (!fs) return true;
+    const name = fs.getAttribute('data-question');
+    const value = name && form.elements.namedItem(name) ? form.elements.namedItem(name).value : '';
+    return !!value;
+  }
+
+  function setFieldsetValid(fieldset, valid) {
+    const name = fieldset.getAttribute('data-question');
+    const errorId = name ? name + '-error' : null;
+    const errorEl = errorId ? document.getElementById(errorId) : null;
+    fieldset.setAttribute('aria-invalid', valid ? 'false' : 'true');
+    if (valid) {
+      fieldset.removeAttribute('aria-describedby');
+    } else if (errorId) {
+      fieldset.setAttribute('aria-describedby', errorId);
+    }
+    if (errorEl) errorEl.classList.toggle('hidden', valid);
+  }
+
+  function showCurrentError() {
+    const fs = getCurrentFieldset();
+    if (fs) setFieldsetValid(fs, false);
+  }
+
+  function clearAutoAdvance() {
+    if (autoAdvanceTimeout !== null) {
+      clearTimeout(autoAdvanceTimeout);
+      autoAdvanceTimeout = null;
+    }
+  }
+
+  function renderOutcomeStep() {
+    const fd = new FormData(form);
+    const answers = { decisionAuthority: fd.get('decisionAuthority') ?? '', budgetIntent: fd.get('budgetIntent') ?? '' };
+    const outcome = qualify(answers);
+    outcomeContentEl.replaceChildren('');
+    if (outcome === 'qualified') {
+      const p = document.createElement('p');
+      p.className = 'mb-4 text-[var(--color-text)]';
+      p.textContent = 'Thank you for completing the Snapshot. You may qualify for a Scale Readiness Diagnostic — pick a time below.';
+      const bookingWrap = document.createElement('div');
+      bookingWrap.className = 'mt-4 min-h-[600px] w-full overflow-hidden rounded border border-[var(--color-border)]';
+      bookingWrap.setAttribute('aria-label', 'Book a 15-minute fit call');
+      const widget = document.createElement('div');
+      widget.className = 'calendly-inline-widget';
+      widget.setAttribute('data-url', calendlyWidgetUrl);
+      widget.style.minWidth = '320px';
+      widget.style.height = '700px';
+      const link = document.createElement('a');
+      link.href = bookingUrl;
+      link.rel = 'noopener noreferrer';
+      link.target = '_blank';
+      link.className = 'mt-2 inline-block text-sm text-[var(--color-muted)] underline hover:text-[var(--color-primary)]';
+      link.textContent = 'Open scheduler in a new tab';
+      bookingWrap.append(widget, link);
+      outcomeContentEl.append(p, bookingWrap);
+      if (!document.querySelector('script[src*="calendly.com/assets/external/widget.js"]')) {
+        const script = document.createElement('script');
+        script.src = 'https://assets.calendly.com/assets/external/widget.js';
+        script.async = true;
+        document.head.appendChild(script);
+      }
+    } else if (outcome === 'manual_review') {
+      const p = document.createElement('p');
+      p.className = 'mb-4 text-[var(--color-text)]';
+      p.textContent = 'Thanks for completing the Snapshot. Your responses suggest there may be a fit; we review a limited number of situations manually before opening calendar access. We\'ll be in touch if we can move forward.';
+      const ctaWrap = document.createElement('p');
+      ctaWrap.className = 'mt-4';
+      if (manualCtaUrl) {
+        const a = document.createElement('a');
+        a.href = manualCtaUrl;
+        a.className = 'text-[var(--color-primary)] underline hover:text-[var(--color-primary-hover)]';
+        a.textContent = manualCtaLabel;
+        ctaWrap.replaceChildren(a);
+      }
+      const emailWrap = document.createElement('div');
+      emailWrap.className = 'mt-6';
+      outcomeContentEl.append(p, ctaWrap, emailWrap);
+      attachFollowUpEmailForm(emailWrap, 'manual_review', 'Want a follow-up? Leave your email.');
+    } else {
+      const p = document.createElement('p');
+      p.className = 'mb-4 text-[var(--color-text)]';
+      p.textContent = 'Thank you for completing the Snapshot. Based on your current stage and decision window, this may not be the highest-leverage moment for a full diagnostic.';
+      const ctaWrap = document.createElement('p');
+      ctaWrap.className = 'mt-4 text-[var(--color-text)]';
+      if (earlyStageUrl) {
+        const para = document.createElement('p');
+        para.className = 'text-[var(--color-text)]';
+        para.append(
+          'If you\'re still validating product–market fit or early-stage scaling, ',
+          (function () {
+            const a = document.createElement('a');
+            a.href = earlyStageUrl;
+            a.className = 'text-[var(--color-primary)] underline hover:text-[var(--color-primary-hover)]';
+            a.rel = 'noopener noreferrer';
+            a.target = '_blank';
+            a.textContent = earlyStageLabel;
+            return a;
+          })(),
+          ' may help. When you\'re further along, you can retake the Snapshot.'
+        );
+        ctaWrap.replaceChildren(para);
+      }
+      const emailWrap = document.createElement('div');
+      emailWrap.className = 'mt-6';
+      outcomeContentEl.append(p, ctaWrap, emailWrap);
+      attachFollowUpEmailForm(emailWrap, 'disqualified', 'Get notified when you\'re further along:');
+    }
+  }
+
+  function attachFollowUpEmailForm(container, outcome, promptText) {
+    if (!container || !followUpFormEndpoint) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'flex flex-col gap-4 max-w-sm';
+    wrap.setAttribute('aria-label', 'Get notified');
+    const intro = document.createElement('p');
+    intro.className = 'text-sm text-[var(--color-text)]';
+    intro.textContent = promptText;
+    wrap.appendChild(intro);
+    const nameWrap = document.createElement('label');
+    nameWrap.className = 'flex flex-col gap-1';
+    const nameLabel = document.createElement('span');
+    nameLabel.className = 'text-sm text-[var(--color-text)]';
+    nameLabel.textContent = 'Name';
+    const nameInput = document.createElement('input');
+    nameInput.type = 'text';
+    nameInput.name = 'firstName';
+    nameInput.required = true;
+    nameInput.placeholder = 'Your name';
+    nameInput.autocomplete = 'name';
+    nameInput.className = 'rounded border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-[var(--color-text)] focus:border-[var(--color-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)]';
+    const nameError = document.createElement('span');
+    nameError.className = 'text-sm text-[var(--color-error)] hidden';
+    nameError.setAttribute('role', 'alert');
+    nameError.id = 'snapshot-followup-name-error';
+    nameWrap.append(nameLabel, nameInput, nameError);
+    const emailWrap = document.createElement('label');
+    emailWrap.className = 'flex flex-col gap-1';
+    const emailLabel = document.createElement('span');
+    emailLabel.className = 'text-sm text-[var(--color-text)]';
+    emailLabel.textContent = 'Email';
+    const emailInput = document.createElement('input');
+    emailInput.type = 'email';
+    emailInput.name = 'email';
+    emailInput.required = true;
+    emailInput.placeholder = 'you@company.com';
+    emailInput.autocomplete = 'email';
+    emailInput.className = 'rounded border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-[var(--color-text)] focus:border-[var(--color-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)]';
+    const emailError = document.createElement('span');
+    emailError.className = 'text-sm text-[var(--color-error)] hidden';
+    emailError.setAttribute('role', 'alert');
+    emailError.id = 'snapshot-followup-email-error';
+    emailWrap.append(emailLabel, emailInput, emailError);
+    wrap.append(nameWrap, emailWrap);
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'self-start rounded border-2 border-[var(--color-primary)] px-4 py-2 font-medium text-[var(--color-text-emphasis)] transition-colors hover:bg-[var(--color-primary)]/10 hover:text-[var(--color-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary)]';
+    btn.textContent = 'Notify me';
+    wrap.append(btn);
+    function doSubmit() {
+      var email = emailInput.value.trim();
+      var name = nameInput.value.trim();
+      showNameError('');
+      showEmailError('');
+      if (!name) { showNameError('Please enter your name.'); nameInput.focus(); return; }
+      if (!email) { showEmailError('Please enter your email.'); emailInput.focus(); return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showEmailError('Please enter a valid email address.'); emailInput.focus(); return; }
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      var payload = { firstName: name, email: email, message: { Subject: 'Snapshot follow-up', Outcome: outcome } };
+      fetch(followUpFormEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+        .then(function (res) { if (!res.ok) throw new Error('Request failed'); container.replaceChildren(''); var h = document.createElement('p'); h.className = 'font-medium text-[var(--color-text-headline)]'; h.textContent = 'Thank you.'; var p = document.createElement('p'); p.className = 'mt-2 text-[var(--color-text)]'; p.textContent = "We'll be in touch."; container.appendChild(h); container.appendChild(p); })
+        .catch(function () { btn.disabled = false; btn.textContent = 'Notify me'; var err = document.createElement('p'); err.className = 'text-sm text-[var(--color-error)]'; err.textContent = 'Something went wrong. Try again or email us directly.'; container.appendChild(err); });
+    }
+    btn.addEventListener('click', doSubmit);
+    function showNameError(msg) {
+      nameError.textContent = msg || '';
+      nameError.classList.toggle('hidden', !msg);
+      nameInput.setAttribute('aria-invalid', msg ? 'true' : 'false');
+      if (msg) nameInput.setAttribute('aria-describedby', 'snapshot-followup-name-error');
+      else nameInput.removeAttribute('aria-describedby');
+    }
+    function showEmailError(msg) {
+      emailError.textContent = msg || '';
+      emailError.classList.toggle('hidden', !msg);
+      emailInput.setAttribute('aria-invalid', msg ? 'true' : 'false');
+      if (msg) emailInput.setAttribute('aria-describedby', 'snapshot-followup-email-error');
+      else emailInput.removeAttribute('aria-describedby');
+    }
+    nameInput.addEventListener('input', function () { showNameError(''); });
+    emailInput.addEventListener('input', function () { showEmailError(''); });
+    nameInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); doSubmit(); } });
+    emailInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); doSubmit(); } });
+    container.replaceChildren(wrap);
+  }
+
+  backBtn.addEventListener('click', () => {
+    clearAutoAdvance();
+    setStep(currentStep - 1);
+  });
+  nextBtn.addEventListener('click', () => {
+    clearAutoAdvance();
+    if (!isCurrentStepValid()) {
+      showCurrentError();
+      getCurrentFieldset()?.querySelector('input[type="radio"]')?.focus();
+      return;
+    }
+    setStep(currentStep + 1);
+  });
+
+  function scheduleAutoAdvance() {
+    if (currentStep >= totalSteps) return;
+    clearAutoAdvance();
+    const delayMs = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : AUTO_ADVANCE_DELAY_MS;
+    if (delayMs <= 0) {
+      setStep(currentStep + 1);
+    } else {
+      autoAdvanceTimeout = setTimeout(() => setStep(currentStep + 1), delayMs);
+    }
+  }
+
+  form.addEventListener('change', (e) => {
+    const target = e.target;
+    if (target.type !== 'radio') return;
+    const fs = getCurrentFieldset();
+    if (fs && !fs.contains(target)) return;
+    if (fs) setFieldsetValid(fs, true);
+    scheduleAutoAdvance();
+  });
+
+  form.addEventListener('input', (e) => {
+    const target = e.target;
+    if (target.type !== 'radio') return;
+    const fs = getCurrentFieldset();
+    if (fs && !fs.contains(target)) return;
+    if (fs) setFieldsetValid(fs, true);
+    scheduleAutoAdvance();
+  });
+
+  form.addEventListener('click', (e) => {
+    const el = e.target;
+    const radio = el instanceof HTMLInputElement && el.type === 'radio' ? el : el.closest?.('label')?.querySelector?.('input[type="radio"]');
+    if (radio instanceof HTMLInputElement && radio.name) {
+      const fs = getCurrentFieldset();
+      if (fs && !fs.contains(radio)) return;
+      if (fs) setFieldsetValid(fs, true);
+      scheduleAutoAdvance();
+    }
+  }, true);
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (currentStep === totalSteps) return;
+    if (!isCurrentStepValid()) {
+      showCurrentError();
+      getCurrentFieldset()?.querySelector('input[type="radio"]')?.focus();
+      return;
+    }
+    setStep(currentStep + 1);
+  });
+
+  setStep(1);
+</script>

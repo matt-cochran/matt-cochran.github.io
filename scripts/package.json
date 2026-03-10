@@ -1,0 +1,11 @@
+{
+  "name": "email-assets-scripts",
+  "private": true,
+  "scripts": {
+    "blue-assets": "node blue-email-assets.js",
+    "gray-assets": "node gray-email-assets.js"
+  },
+  "dependencies": {
+    "jimp": "^0.22.12"
+  }
+}
