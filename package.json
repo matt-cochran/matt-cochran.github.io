@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.0",
   "scripts": {
-    "dev": "npx astro dev",
+    "dev": "npm run copy-assets && npx astro dev",
     "build": "npm run copy-assets && npx astro build",
     "preview": "npx astro preview",
     "copy-assets": "node -e \"require('fs').cpSync('assets', 'public/assets', {recursive: true})\""
