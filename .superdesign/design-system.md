@@ -155,7 +155,7 @@ These are intentional concept branches. Each may use its named family without mi
 
 - Visual idea: one builder, a coherent system of products orbiting shared principles.
 - Background `#080B12`, surface `#101522`, text `#F2F5F8`, secondary `#9DA9B7`, electric blue `#69A9FF`, cyan `#63D8D2`, violet used sparingly `#9A87E8`.
-- Fonts: Manrope for display/body; JetBrains Mono for labels.
+- Fonts: Source Serif 4 for editorial headings, Inter for body, IBM Plex Mono for labels and evidence metadata, and Archivo only for compact display utility where specified.
 - Spatial map/constellation hero, connected product nodes, product categories as clusters, crisp luminous lines without gradients or sci-fi clutter.
 - Best for showing portfolio coherence and making product exploration memorable.
 
