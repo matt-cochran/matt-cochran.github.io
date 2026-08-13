@@ -12,3 +12,6 @@ dist/
 # IDE / OS
 .DS_Store
 *.log
+.superdesign/tmp/
+.qa/
+.astro/preview.json

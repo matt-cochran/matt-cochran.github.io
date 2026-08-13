@@ -1,27 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Section from '../components/Section.astro';
+import PageHeader from '../components/PageHeader.astro';
 import ScaleReadinessSnapshot from '../components/ScaleReadinessSnapshot.astro';
 ---
-
-<BaseLayout
-  title="Start the Scale Readiness Snapshot — Matthew Cochran"
-  description="A short assessment to determine fit for the Scale Readiness Diagnostic. About 3 minutes. Qualifying prospects only receive access to the fit call booking."
->
-  <Section
-    id="snapshot"
-    heading="Start the Scale Readiness Snapshot"
-    description="About 3 minutes. Fit determined before a call is offered."
-  >
-    <div class="max-w-[65ch]">
-      <p class="mb-6 text-[var(--color-text)]">
-        The Snapshot is a short, structured assessment. It determines whether a Scale Readiness Diagnostic is appropriate for your situation before we offer a call.
-      </p>
-      <p class="mb-8 text-[var(--color-text)]">
-        You’ll answer a few questions on company stage, engineering org size, hiring plans, scaling friction, decision authority, and budget intent. If the fit is clear, you’ll get access to book a 15-minute fit call. If not, we’ll say so and you can revisit later.
-      </p>
-
-      <ScaleReadinessSnapshot />
-    </div>
-  </Section>
+<BaseLayout title="Scale Readiness Snapshot — Matthew Cochran" description="A short structured assessment to determine whether a Scale Readiness Diagnostic is appropriate for your startup.">
+  <PageHeader eyebrow="Startup engagements / Readiness snapshot" title="Is this the right intervention, right now?" description="A short, structured assessment of company stage, engineering scale, hiring plans, scaling friction, decision authority, and timing." aside="Approximately three minutes · Fit before a call" />
+  <section class="snapshot-shell shell">
+    <aside><p class="kicker">What happens next</p><ol><li><span>01</span>Answer one question at a time.</li><li><span>02</span>Receive an immediate fit result.</li><li><span>03</span>If the fit is clear, schedule a short conversation.</li></ol><p>Your responses are used only to determine fit and are not shared externally.</p></aside>
+    <div class="snapshot-panel"><ScaleReadinessSnapshot /></div>
+  </section>
 </BaseLayout>

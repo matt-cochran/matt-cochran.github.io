@@ -1,0 +1,36 @@
+# Shared UI Components
+
+Framework: Astro 5 with Tailwind CSS 4 and custom Astro components. There is no third-party component library.
+
+## Section
+
+- Path: `src/components/Section.astro`
+- Description: Reusable split-layout content section with a right-aligned heading rail and prose body.
+- Props: `heading`, optional `description`, optional `id`
+
+```astro
+---
+interface Props {
+  heading: string;
+  description?: string;
+  id?: string;
+}
+
+const { heading, description, id } = Astro.props;
+---
+
+<section class="border-t border-[var(--color-border)] bg-[var(--color-surface)]" id={id}>
+  <div class="mx-auto max-w-[min(1440px,92vw)] px-6 py-10 md:px-14 md:py-12 lg:flex">
+    <header class="lg:w-[30%] lg:pr-12 lg:text-right">
+      <h2 class="text-xl font-semibold text-[var(--color-text-headline)]">{heading}</h2>
+      {description && <p class="mt-1 text-sm text-[var(--color-text)]">{description}</p>}
+    </header>
+    <div class="mt-6 lg:mt-0 lg:w-[70%]">
+      <div class="prose prose-invert max-w-none text-[var(--color-text)] leading-relaxed [&_a]:text-[var(--color-primary)] [&_a:hover]:text-[var(--color-primary-hover)] [&_h2]:mt-8 [&_h2]:mb-2 [&_h2]:text-[var(--color-text-headline)] [&_h3]:mt-6 [&_h3]:mb-2 [&_h3]:text-[var(--color-text-headline)] [&_strong]:text-[var(--color-text-emphasis)] [&_p]:mb-5 [&_ul]:mb-5 [&_ol]:mb-5 first:[&_p]:mt-0">
+        <slot />
+      </div>
+    </div>
+  </div>
+</section>
+```
+

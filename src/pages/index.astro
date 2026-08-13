@@ -1,159 +1,202 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Section from '../components/Section.astro';
+
+const products = [
+  {
+    name: 'Attestrack',
+    type: 'Customer product · open-source core',
+    status: 'Public repository',
+    description: 'First-party, server-side analytics designed to run in infrastructure the customer controls. Attestrue is a separate commercial extension.',
+    evidence: ['Customer-controlled deployment', 'Open-source core', 'Separate commercial extension'],
+    href: 'https://github.com/matt-cochran-products/attestrack',
+    cta: 'Inspect repository',
+    featured: true,
+  },
+  {
+    name: 'Licenz',
+    type: 'Developer infrastructure',
+    status: 'Published on crates.io',
+    description: 'Offline-first software-license verification for Rust, built around signed licenses, hardware binding, and an explicit threat model.',
+    evidence: ['Offline verification', 'Rust crate', 'Documented threat model'],
+    href: 'https://github.com/matt-cochran-products/licenz',
+    cta: 'Read the source',
+    featured: true,
+  },
+  {
+    name: 'SureShift',
+    type: 'SaaS readiness',
+    status: 'Preview',
+    description: 'A read-only product-readiness scanner for teams evaluating architecture, delivery, and recovery risk before they scale.',
+    evidence: ['Read-only assessment', 'No installed agent', 'Decision-oriented output'],
+    href: 'https://github.com/matt-cochran/sureshift',
+    cta: 'Inspect repository',
+  },
+  {
+    name: 'Synapate',
+    type: 'Emerging product',
+    status: 'Coming soon',
+    description: 'An emerging product in the Matthew Cochran Products portfolio. Public details will follow as the product is ready for evaluation.',
+    evidence: ['Status stated plainly', 'No premature claims'],
+    href: 'https://github.com/matt-cochran-products',
+    cta: 'Follow the organization',
+  },
+  {
+    name: 'FrontRails',
+    type: 'Praxec capability pack',
+    status: 'Open-source work',
+    description: 'A Praxec pack exposing governed product and engineering capabilities, including IntentOS and StructureOS.',
+    evidence: ['Governed capabilities', 'Part of Praxec', 'Public source'],
+    href: 'https://github.com/praxec',
+    cta: 'Explore Praxec',
+  },
+  {
+    name: 'Sound Playground',
+    type: 'Local-first application',
+    status: 'Public releases',
+    description: 'A product exploration in local, privacy-conscious audio experiences for children.',
+    evidence: ['Local-first direction', 'Public release repository'],
+    href: 'https://github.com/matt-cochran-products',
+    cta: 'View product organization',
+  },
+];
+
+const outcomes = [
+  {
+    eyebrow: 'Public-company CTO leadership',
+    title: 'Infrastructure modernization under active pressure',
+    copy: 'Led the migration and consolidation of more than 600 virtual servers to Google Cloud with Infrastructure as Code, zero downtime, and a tested disaster-recovery foundation.',
+    link: 'https://www.persistent.com/client-success/artnet-increases-efficiency-by-280x-as-they-move-to-google-cloud/',
+  },
+  {
+    eyebrow: 'Billion-dollar enterprise · Medidata',
+    title: 'Flagship-product architecture and portfolio repair',
+    copy: 'Architected and repaired flagship products and led technical turnarounds for some of the weakest products in the portfolio—work requiring product judgment, delivery discipline, and hands-on technical depth.',
+  },
+  {
+    eyebrow: 'Program and delivery governance',
+    title: 'Critical-path discipline for consequential work',
+    copy: 'Applies formal project planning, including CPM, to expose dependencies, sequence work, and control delivery risk—and builds tools that bring the same discipline to agentic coding.',
+  },
+];
 ---
 
 <BaseLayout
-  title="Matthew Cochran — Scale Readiness Validation for Series A SaaS"
-  description="Scale Readiness Validation for Series A SaaS. Validate you're ready to scale—architecture and market focus—before committing more headcount and budget."
+  title="Matthew Cochran — Product Builder, Engineering Leader & AI Systems Specialist"
+  description="Products, open-source systems, and leadership work by Matthew Cochran: a hands-on CTO and product-engineering leader specializing in dependable governed AI."
 >
-  <!-- Hero: image column only as wide as photo so text sits next to it (no dead space) -->
-  <section class="border-b border-[var(--color-border)] bg-[var(--color-surface)]">
-    <div class="mx-auto flex max-w-[min(1440px,92vw)] flex-col px-6 py-10 md:px-14 md:py-12 lg:flex-row lg:items-center lg:gap-8">
-      <div class="shrink-0">
-        <div class="mx-auto w-36 overflow-hidden rounded-2xl bg-[var(--color-surface-alt)] shadow-lg lg:mx-0 lg:w-44" style="aspect-ratio: 4/5;">
-          <img
-            src="/assets/images/MC-headshot.png"
-            alt="Matthew Cochran"
-            class="h-full w-full object-contain object-center"
-          />
+  <section class="hero dossier-grid" aria-labelledby="hero-title">
+    <div class="shell hero-layout">
+      <div class="hero-copy reveal">
+        <p class="kicker">Product &amp; engineering dossier <span>New York / Remote</span></p>
+        <h1 id="hero-title">Governed AI systems engineered for <em>dependability.</em></h1>
+        <p class="hero-lede">A hands-on product and engineering leader with 25+ years building products, leading technical organizations, and repairing high-consequence systems across enterprises and startups.</p>
+        <p class="hero-context">Former CTO of publicly traded Artnet and Founder/CTO at TruthShield. Current work spans deterministic AI execution, cognitive architectures, agentic project planning, and products designed to earn trust through evidence.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#products">Explore products <span aria-hidden="true">↘</span></a>
+          <a class="button secondary" href="/resume/">View résumé <span aria-hidden="true">→</span></a>
         </div>
       </div>
-      <div class="mt-6 min-w-0 flex-1 lg:mt-0">
-        <h1 class="text-3xl font-light leading-tight md:text-4xl lg:text-[2.5rem]">
-          <span class="lowercase text-[var(--color-text-headline)]">Scale Readiness Validation</span>
-          <span class="mt-1 block uppercase font-bold tracking-wide text-[var(--color-primary)]">for Series A SaaS</span>
-        </h1>
-        <p class="mt-4 max-w-xl text-base leading-relaxed text-[var(--color-text)] md:text-lg">
-          I help Series A teams validate they're ready to scale—across architecture and market focus—before they commit more headcount and budget.
-        </p>
-        <div class="mt-6 flex flex-wrap items-center gap-3">
-          <a
-            href="/snapshot/"
-            class="inline-block rounded border-2 border-[var(--color-primary)] px-6 py-3 text-[var(--color-text-emphasis)] no-underline transition-colors hover:bg-[var(--color-primary)]/10 hover:text-[var(--color-primary)]"
-          >
-            Take the Scale Readiness Snapshot
-          </a>
-          <a href="#offer" class="text-[var(--color-text-emphasis)] hover:text-[var(--color-primary)]">What you get (4–6 week diagnostic)</a>
-        </div>
-        <div class="mt-4">
-          <a
-            href="https://linkedin.com/in/matthew-cochran-1a02b119"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex h-10 w-10 items-center justify-center rounded border border-[var(--color-border)] bg-[var(--color-surface-alt)] text-[var(--color-muted)] hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-primary)]"
-            aria-label="LinkedIn"
-          >
-            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          </a>
-        </div>
+      <aside class="hero-profile reveal delay-1" aria-label="Profile summary">
+        <div class="portrait-frame"><img src="/assets/images/MC-headshot.png" alt="Matthew Cochran" /></div>
+        <dl class="profile-facts">
+          <div><dt>Operating mode</dt><dd>Player-coach</dd></div>
+          <div><dt>Scope</dt><dd>Product · Project · Technical</dd></div>
+          <div><dt>Specialization</dt><dd>Governed AI engineering</dd></div>
+          <div><dt>Environments</dt><dd>Enterprise · Startup</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  <section class="operating-band" aria-label="Operating disciplines">
+    <div class="shell operating-grid">
+      <article><span>01 / Product</span><h2>Find the consequential problem.</h2><p>Customer discovery, commercial judgment, and product strategy before implementation momentum makes assumptions expensive.</p></article>
+      <article><span>02 / Project</span><h2>Make the path executable.</h2><p>Critical-path planning, dependency control, and delivery governance for complex human and agentic work.</p></article>
+      <article><span>03 / Technical</span><h2>Build the dependable system.</h2><p>Hands-on architecture and implementation with explicit boundaries, verifiable behavior, and operational durability.</p></article>
+    </div>
+  </section>
+
+  <section id="products" class="section shell" aria-labelledby="products-title">
+    <header class="section-heading reveal">
+      <div><p class="kicker">Products / 01</p><h2 id="products-title">Products built to withstand scrutiny.</h2></div>
+      <p>Customer-facing products, developer infrastructure, and emerging work—each labeled by what is available today, with a direct path to evidence.</p>
+    </header>
+    <div class="product-grid">
+      {products.map((product, index) => (
+        <article class:list={['product-card', { featured: product.featured }, 'reveal']} style={`--order:${index}`}>
+          <div class="card-meta"><span>{product.type}</span><strong>{product.status}</strong></div>
+          <h3>{product.name}</h3>
+          <p>{product.description}</p>
+          <ul class="evidence-list">{product.evidence.map((item) => <li>{item}</li>)}</ul>
+          <a href={product.href} target="_blank" rel="noopener noreferrer">{product.cta} <span aria-hidden="true">↗</span></a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="praxec" class="family family-dark">
+    <div class="shell family-layout">
+      <header class="family-intro reveal">
+        <p class="kicker">Open-source family / Praxec</p>
+        <h2>Make AI execution governable.</h2>
+        <p>Praxec is a production-oriented foundation for putting deterministic boundaries around probabilistic models—so teams can use AI while retaining control over state, tools, approvals, and evidence.</p>
+        <a class="text-link" href="https://github.com/praxec" target="_blank" rel="noopener noreferrer">Explore the Praxec organization ↗</a>
+      </header>
+      <div class="family-modules">
+        <article><span>01</span><h3>Execution kernel</h3><p>Legal workflow transitions and authoritative gates live in code, not in model interpretation.</p></article>
+        <article><span>02</span><h3>Cognitive architectures</h3><p>Structured, governed approaches for discovery, analysis, FMECA, implementation, and verification.</p></article>
+        <article><span>03</span><h3>Deterministic MCP tools</h3><p>CPM planning, elicitation, scientific process, cross-matrix analysis, corpus work, and operational utilities.</p></article>
+        <article><span>04</span><h3>FrontRails</h3><p>A Praxec capability pack for governed product and engineering work, including IntentOS and StructureOS.</p></article>
       </div>
     </div>
   </section>
 
-  <Section heading="Who this is for" description="Series A SaaS with real scaling pressure">
-    <div class="max-w-[65ch]">
-    <p><strong>Best fit:</strong> Series A SaaS, 10–50 engineers, hiring or planning to hire VP Eng / Head of Eng, recently raised or under growth pressure.</p>
-    <p>You feel velocity drag, cross-team friction, architecture instability, roadmap confusion, or fear of scaling wrong.</p>
-    <p><strong>Not a fit:</strong> Pre-seed or still exploring product-market fit. Hands-on dev staffing needs. No decision authority or budget intent within the next 60 days.</p>
-    <p class="mt-6">If that describes you, the next step is the <a href="/snapshot/">Scale Readiness Snapshot</a>—a short questionnaire to see if we should talk.</p>
+  <section id="tflo" class="family family-light dossier-grid">
+    <div class="shell family-layout">
+      <header class="family-intro reveal">
+        <p class="kicker">Open-source family / tflo</p>
+        <h2>Temporal systems with explicit behavior.</h2>
+        <p>The tflo family explores embeddable temporal event processing across Rust, WASM, React, and browser environments—with shared models and deterministic behavior as design goals.</p>
+        <a class="text-link" href="https://github.com/matt-cochran?tab=repositories&q=tflo" target="_blank" rel="noopener noreferrer">Explore tflo repositories ↗</a>
+      </header>
+      <div class="tflo-stack">
+        <article><div><span>Runtime</span><h3>tflo-core</h3></div><p>The embeddable Rust engine and shared temporal foundation.</p></article>
+        <article><div><span>Interface</span><h3>tflo-react</h3></div><p>Declarative temporal state for React applications backed by the shared runtime.</p></article>
+        <article><div><span>Interaction</span><h3>tflo-browser-events</h3></div><p>Browser-event capture and signals designed around durable identifiers and pluggable sinks.</p></article>
+      </div>
     </div>
-  </Section>
+  </section>
 
-  <Section heading="You may not be scale-ready if…" description="Recognition signals before you commit more headcount">
-    <div class="max-w-[65ch]">
-    <ul class="list-none space-y-3 pl-0">
-      <li>Feature work keeps turning into foundational changes.</li>
-      <li>Normal changes spill across services or contracts.</li>
-      <li>Hiring isn't increasing velocity.</li>
-      <li>Roadmap feels noisy; validation is inconsistent.</li>
-      <li>Releases feel risky; regressions are rising.</li>
-    </ul>
-    <p class="mt-4">If several of these ring true, a <a href="/snapshot/">Scale Readiness Snapshot</a> can clarify whether a full diagnostic makes sense.</p>
+  <section id="proof" class="section shell" aria-labelledby="proof-title">
+    <header class="section-heading reveal">
+      <div><p class="kicker">Leadership / 02</p><h2 id="proof-title">Direction, delivery, and the work itself.</h2></div>
+      <p>Breadth is useful when it becomes pattern recognition: across public companies, billion-dollar enterprise software, regulated domains, and early-stage teams.</p>
+    </header>
+    <div class="outcomes">
+      {outcomes.map((outcome, index) => (
+        <article class="outcome reveal" style={`--order:${index}`}>
+          <p class="eyebrow">{outcome.eyebrow}</p><h3>{outcome.title}</h3><p>{outcome.copy}</p>
+          {outcome.link && <a href={outcome.link} target="_blank" rel="noopener noreferrer">Read external case study ↗</a>}
+        </article>
+      ))}
     </div>
-  </Section>
+    <div class="proof-actions"><a class="button secondary" href="/resume/">View full résumé →</a><a class="text-link" href="/about/">More about Matthew →</a></div>
+  </section>
 
-  <Section id="offer" heading="Scale Readiness Diagnostic (4–6 weeks)" description="Structured validation before you scale">
-    <div class="max-w-[65ch]">
-    <p>Outcome: clarity on what will break when you scale—and what must change first.</p>
-    <h3 class="mt-6 text-lg font-semibold">Deliverables</h3>
-    <ol class="list-decimal pl-6">
-      <li><strong>Structural Scaling Map</strong> — Blast and coupling risk, boundary risk zones, where hiring amplifies fragility.</li>
-      <li><strong>Market Resonance Risk Map</strong> — ICP clarity, feature-to-ICP alignment gaps, roadmap and pre-sell signal gaps.</li>
-      <li><strong>Scale Readiness Blueprint</strong> — What must change before scaling, what to kill, what to double down on, hiring sequencing.</li>
-    </ol>
-    <h3 class="mt-6 text-lg font-semibold">Boundaries (this is not)</h3>
-    <ul class="list-disc pl-6">
-      <li>Staff augmentation or implementation retainer.</li>
-      <li>Ongoing fractional CTO or refactoring work.</li>
-      <li>Strategy workshops without a concrete deliverable.</li>
-    </ul>
-    <p class="mt-4">It is a time-bound, decision-grade validation before scaling decisions. I run a limited number of diagnostics at a time.</p>
-    <p class="mt-6">Engagements typically start at $25k+. <a href="/scale-readiness/">More detail</a> · <a href="/snapshot/">Take the Snapshot</a></p>
+  <section id="method" class="methodology">
+    <div class="method-grid" aria-hidden="true"></div>
+    <div class="shell method-content reveal">
+      <p class="kicker">Working method / 03</p>
+      <h2>Conceive the product.<br />Steward the system.</h2>
+      <p>Discovery, boundary analysis, critical-path planning, implementation, and verification form one accountable delivery loop. The artifacts change; the discipline does not.</p>
+      <div class="method-steps">
+        <span>Discover</span><i>→</i><span>Model risk</span><i>→</i><span>Plan the path</span><i>→</i><span>Ship</span><i>→</i><span>Verify</span>
+      </div>
     </div>
-  </Section>
+  </section>
 
-  <Section heading="Scale readiness in practice" description="Where validation changed the outcome">
-    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-      <div class="border-t-2 border-[var(--color-primary)] pt-4">
-        <h3 class="text-lg font-semibold text-[var(--color-text-headline)]">Product &amp; roadmap alignment</h3>
-        <p class="mt-2 text-sm"><strong>Context:</strong> B2B product company; no formal product strategy; roadmap and validation were inconsistent.</p>
-        <p class="mt-1 text-sm"><strong>Scale risk:</strong> Adding headcount would have amplified misalignment.</p>
-        <p class="mt-1 text-sm"><strong>Intervention:</strong> Introduced a customer-centric product practice and aligned product, development, and quality around a clear strategy.</p>
-        <p class="mt-1 text-sm"><strong>Result:</strong> UX and product decisions became data-driven and customer-backed; team could scale with a shared direction.</p>
-      </div>
-      <div class="border-t-2 border-[var(--color-primary)] pt-4">
-        <h3 class="text-lg font-semibold text-[var(--color-text-headline)]">Infrastructure &amp; resilience</h3>
-        <p class="mt-2 text-sm"><strong>Context:</strong> Art-tech, mission-critical ops; 600+ undocumented virtual servers, single-point dependency, no remote capability.</p>
-        <p class="mt-1 text-sm"><strong>Scale risk:</strong> Any growth or crisis would have collapsed operations.</p>
-        <p class="mt-1 text-sm"><strong>Intervention:</strong> Migrated to cloud, consolidated to a manageable footprint, established disaster recovery. <a href="https://www.prnewswire.com/news-releases/itopia-empowers-artnet-to-streamline-mission-critical-vdi-on-google-cloud-301170072.html" target="_blank" rel="noopener noreferrer">Project</a> completed in 2 months under active threat with zero downtime.</p>
-        <p class="mt-1 text-sm"><strong>Result:</strong> In-house managed, tested DR, workforce fully remote-capable.</p>
-      </div>
-      <div class="border-t-2 border-[var(--color-primary)] pt-4">
-        <h3 class="text-lg font-semibold text-[var(--color-text-headline)]">Deployment &amp; ops at scale</h3>
-        <p class="mt-2 text-sm"><strong>Context:</strong> Same engagement; self-managed data centers, manual deployment and management.</p>
-        <p class="mt-1 text-sm"><strong>Scale risk:</strong> More teams and releases would have made manual processes the bottleneck.</p>
-        <p class="mt-1 text-sm"><strong>Intervention:</strong> Migrated run-time environments to cloud (GCP), moved to Infrastructure as Code.</p>
-        <p class="mt-1 text-sm"><strong>Result:</strong> 280x improvement in deployment and management efficiency. <a href="https://www.persistent.com/client-success/artnet-increases-efficiency-by-280x-as-they-move-to-google-cloud/" target="_blank" rel="noopener noreferrer">Case study</a>.</p>
-      </div>
-      <div class="border-t-2 border-[var(--color-primary)] pt-4">
-        <h3 class="text-lg font-semibold text-[var(--color-text-headline)]">Velocity &amp; architecture</h3>
-        <p class="mt-2 text-sm"><strong>Context:</strong> Same engagement; architecture and process were limiting delivery speed.</p>
-        <p class="mt-1 text-sm"><strong>Scale risk:</strong> Adding engineers would not have translated into proportionally more output.</p>
-        <p class="mt-1 text-sm"><strong>Intervention:</strong> Restructured architecture and development process, upgraded production systems.</p>
-        <p class="mt-1 text-sm"><strong>Result:</strong> 454% improvement in project execution velocity; 110x improvement in deployment velocity.</p>
-      </div>
-      <div class="border-t-2 border-[var(--color-primary)] pt-4">
-        <h3 class="text-lg font-semibold text-[var(--color-text-headline)]">Data &amp; single source of truth</h3>
-        <p class="mt-2 text-sm"><strong>Context:</strong> Enterprise data; mission-critical business information scattered; no single aggregated source.</p>
-        <p class="mt-1 text-sm"><strong>Scale risk:</strong> Growth would have increased inconsistency and rework.</p>
-        <p class="mt-1 text-sm"><strong>Intervention:</strong> Led modernization of data capabilities with cloud data lake, warehouse, and pipelining.</p>
-        <p class="mt-1 text-sm"><strong>Result:</strong> Single source of truth for mission-critical information; foundation for scaling analytics and reporting.</p>
-      </div>
-      <div class="border-t-2 border-[var(--color-primary)] pt-4">
-        <h3 class="text-lg font-semibold text-[var(--color-text-headline)]">Project governance &amp; ROI</h3>
-        <p class="mt-2 text-sm"><strong>Context:</strong> Same engagement; no formal project management; ad hoc requests and unclear ROI.</p>
-        <p class="mt-1 text-sm"><strong>Scale risk:</strong> More projects and people would have multiplied waste.</p>
-        <p class="mt-1 text-sm"><strong>Intervention:</strong> Established formal technical project management and standard operating procedures.</p>
-        <p class="mt-1 text-sm"><strong>Result:</strong> Project-centric approach; ability to kill low-ROI work and align investment with time, cost, and risk.</p>
-      </div>
-    </div>
-  </Section>
-
-  <Section heading="How it works" description="Snapshot → Fit call → Diagnostic">
-    <div class="max-w-[65ch]">
-    <ol class="list-decimal space-y-4 pl-6">
-      <li><strong>Take the Scale Readiness Snapshot</strong> — A 3-minute questionnaire on stage, team size, hiring plans, and where you feel scaling friction. You'll see quickly whether the diagnostic is a good fit; if it is, we schedule a short call.</li>
-      <li><strong>15-minute fit call</strong> — We align on your situation, timeline, and what you need. We decide together whether to move ahead with the diagnostic. No pitch, no obligation.</li>
-      <li><strong>Scale Readiness Diagnostic</strong> (4–6 weeks) — You get the Structural Scaling Map, Market Resonance Risk Map, and Scale Readiness Blueprint: clear priorities and next steps before you scale.</li>
-    </ol>
-    <p class="mt-6"><a href="/snapshot/">Take the Scale Readiness Snapshot</a></p>
-    </div>
-  </Section>
-
-  <Section heading="Background" description="Full resume and experience on the About page">
-    <div class="max-w-[65ch]">
-    <p>Matthew Cochran is Co-Founder at OutboundLabs. Former CTO at Artnet; previously Founder, CTO at TruthShield; senior leadership at Medidata, Shutterstock, and others. Twenty-five-plus years in product and technical leadership. <a href="/about/">About &amp; full experience</a>.</p>
-    </div>
-  </Section>
+  <section id="engage" class="engagement shell reveal">
+    <div><p class="kicker">Selective engagements</p><h2>For technical founders at consequential inflection points.</h2></div>
+    <div><p>Focused help when architecture, product direction, AI integration, or delivery mechanics are becoming material company risks. The work is practical, bounded, and designed to leave the team stronger.</p><div class="engagement-links"><a class="button primary" href="/scale-readiness/">Explore startup help →</a><a class="text-link" href="mailto:matthew@cochranweb.com">Start a conversation</a></div></div>
+  </section>
 </BaseLayout>

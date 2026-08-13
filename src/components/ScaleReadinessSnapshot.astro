@@ -133,7 +133,9 @@ const FOLLOW_UP_FORM_ENDPOINT = SNAPSHOT_CONFIG.followUpFormEndpoint;
   const backBtn = document.getElementById('snapshot-back-btn');
   const nextBtn = document.getElementById('snapshot-next-btn');
 
-  if (!form || !outcomeContentEl || !stepCurrentEl || !stepsContainer || !backBtn || !nextBtn) return;
+  if (!form || !outcomeContentEl || !stepCurrentEl || !stepsContainer || !backBtn || !nextBtn) {
+    throw new Error('Scale Readiness Snapshot could not initialize: required form elements are missing.');
+  }
 
   const steps = Array.from(stepsContainer.querySelectorAll('.snapshot-step'));
   let currentStep = 1;
