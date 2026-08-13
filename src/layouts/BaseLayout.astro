@@ -8,7 +8,7 @@ interface Props {
   description?: string;
 }
 
-const { title, description = 'Matthew Cochran: Scale Readiness Validation for Series A SaaS.' } = Astro.props;
+const { title, description = 'Matthew Cochran: products, engineering leadership, and dependable governed AI systems.' } = Astro.props;
 ---
 
 <!doctype html>
@@ -19,15 +19,21 @@ const { title, description = 'Matthew Cochran: Scale Readiness Validation for Se
     <meta name="description" content={description} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&display=swap" rel="stylesheet" />
     <title>{title}</title>
   </head>
-  <body class="min-h-screen bg-[var(--color-surface)] font-sans text-[var(--color-text)] antialiased" style="font-family: 'Lato', sans-serif;">
+  <body class="min-h-screen bg-[var(--color-surface)] text-[var(--color-text)] antialiased">
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <Nav />
     <main id="main-content" tabindex="-1">
       <slot />
     </main>
     <Footer />
+    <script>
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => { if (entry.isIntersecting) entry.target.setAttribute('data-visible', ''); });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
+    </script>
   </body>
 </html>
