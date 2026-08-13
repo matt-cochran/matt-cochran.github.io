@@ -1,17 +1,16 @@
 ---
 const navLinks = [
   { href: '/#products', label: 'Products' },
-  { href: '/#praxec', label: 'Praxec' },
-  { href: '/#tflo', label: 'tflo' },
-  { href: '/#proof', label: 'Leadership' },
-  { href: '/product-workshop/', label: 'Workshop' },
-  { href: '/scale-readiness/', label: 'Startup help' },
+  { href: '/#praxec', label: 'Governed AI' },
+  { href: '/#tflo', label: 'Runtimes' },
+  { href: '/product-workshop/', label: 'Methodology' },
+  { href: '/scale-readiness/', label: 'Startup Advisory' },
 ];
 ---
 
 <nav class="site-nav" aria-label="Main">
   <div class="shell nav-inner">
-    <a href="/" class="wordmark" aria-label="Matthew Cochran, home"><strong>Matthew Cochran</strong><span>Product &amp; Engineering</span></a>
+    <a href="/" class="wordmark" aria-label="Matthew Cochran, home"><strong>Matthew Cochran</strong><span>Product &amp; Engineering Dossier</span></a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span><span class="sr-only">Toggle navigation</span></button>
     <div id="nav-links" class="nav-links">
       {navLinks.map(({ href, label }) => <a href={href}>{label}</a>)}

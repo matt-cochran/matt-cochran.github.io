@@ -1,8 +1,8 @@
 ---
-interface Props { eyebrow: string; title: string; description: string; aside?: string; }
-const { eyebrow, title, description, aside } = Astro.props;
+interface Props { eyebrow: string; title: string; description: string; aside?: string; grid?: boolean; }
+const { eyebrow, title, description, aside, grid = false } = Astro.props;
 ---
-<header class="page-hero dossier-grid">
+<header class:list={['page-hero', { 'dossier-grid': grid }]}> 
   <div class="shell page-hero-grid reveal">
     <div><p class="kicker">{eyebrow}</p><h1>{title}</h1></div>
     <div class="page-hero-copy"><p>{description}</p>{aside && <span>{aside}</span>}</div>

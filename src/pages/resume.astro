@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHeader from '../components/PageHeader.astro';
 
 const expertise = [
   ['Product leadership','Discovery, strategy, roadmap governance, customer-centered product practices, and commercial prioritization.'],
@@ -23,7 +22,17 @@ const roles = [
 ];
 ---
 <BaseLayout title="Matthew Cochran — Résumé" description="Full professional history for Matthew Cochran: hands-on CTO, product and engineering leader, architect, and governed-AI engineering specialist.">
-  <PageHeader eyebrow="Leadership résumé / 25+ years" title="Matthew Cochran" description="Hands-on product and engineering executive. CTO, founder, architect, team builder, program leader, and software developer across public companies, billion-dollar enterprise platforms, and startups." aside="New York · Remote · matthew@cochranweb.com" />
+  <header class="resume-approved-hero section-enter">
+    <div class="shell resume-approved-grid">
+      <div>
+        <div class="stamp-row"><span class="status-stamp">CTO / AI &amp; Product Engineer</span><span class="status-stamp steel-stamp">25+ Years Experience</span><span class="status-stamp verified-stamp">Active Security Focus</span></div>
+        <h1>Leadership through <em>engineered intelligence</em>.</h1>
+        <p>Strategic technical leader and AI systems architect with a founder’s perspective. Specialized in high-stakes enterprise and startup environments, balancing product judgment, project discipline, technical depth, and production-oriented AI engineering.</p>
+      </div>
+      <aside><button type="button" onclick="window.print()">Download / Print PDF <span>↓</span></button><div><a href="mailto:matthew@cochranweb.com">matthew@cochranweb.com</a><a href="https://linkedin.com/in/matthew-cochran-1a02b119" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a></div></aside>
+    </div>
+  </header>
+  <section class="resume-outcomes"><div class="shell"><article><span>GCP Cloud Migration</span><h3>280×</h3><p>Increase in infrastructure efficiency through IaC consolidation of 600+ virtual servers with zero downtime during active threats.</p></article><article><span>Project Governance</span><h3>454%</h3><p>Prior-work improvement in execution velocity after restructuring project lifecycle management and aligning architecture with product roadmaps.</p></article><article><span>Deployment Frequency</span><h3>110×</h3><p>Prior-work improvement in production release frequency through CI/CD automation and operational modernization.</p></article></div></section>
   <section class="resume-summary shell reveal">
     <div><p class="kicker">Executive profile</p><h2>Player-coach leadership for products and systems that have to work.</h2></div>
     <div><p>Leads the full operating system around product development: discovery and strategy, program structure, engineering organizations, architecture, quality, delivery, and operations. Specialized in artificial-intelligence engineering with an emphasis on deterministic execution, model/tool boundaries, human approval, auditability, and production reliability.</p><div class="resume-links"><a class="button primary" href="mailto:matthew@cochranweb.com">Contact Matthew →</a><a class="text-link" href="https://www.linkedin.com/in/matthew-cochran-1a02b119/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></div></div>
