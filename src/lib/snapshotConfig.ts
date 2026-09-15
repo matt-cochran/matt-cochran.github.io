@@ -22,10 +22,6 @@ export const SNAPSHOT_CONFIG = {
   manualReviewCtaUrl: '' as string,
   manualReviewCtaLabel: 'Learn more about the diagnostic',
 
-  /**
-   * Webhook for follow-up form (manual review + disqualified). We POST JSON: { firstName, email, message: { Subject, Outcome } }.
-   * Test: https://matt-cochran.app.n8n.cloud/webhook-test/send-email — swap to production URL when ready.
-   * Leave empty to hide the follow-up form.
-   */
-  followUpFormEndpoint: 'https://matt-cochran.app.n8n.cloud/webhook-test/send-email' as string,
+  /** Where non-qualified outcomes are invited to write. Leave empty to end those outcomes without a next step. */
+  contactEmail: 'matthew@cochranweb.com' as string,
 } as const;
