@@ -1,6 +1,6 @@
 /**
  * Scale Readiness Snapshot — configurable URLs and outcome copy.
- * Change these to point to your booking, waitlist, or early-stage resource (e.g. Resoniche).
+ * Change these to point to your booking, waitlist, or early-stage resource.
  */
 
 const CALENDLY_BASE = 'https://calendly.com/matthew-cochranweb/scale-ready';
@@ -12,7 +12,7 @@ export const SNAPSHOT_CONFIG = {
   calendlyWidgetUrl: `${CALENDLY_BASE}?hide_event_type_details=1&hide_gdpr_banner=1`,
 
   /**
-   * Optional: resource for disqualified prospects (e.g. Resoniche for market-scale / PMF testing).
+   * Optional: resource for disqualified prospects (e.g. a market-scale / PMF testing tool).
    * Leave empty to hide the link. Gives them a useful next step so they can get to the point where the diagnostic fits.
    */
   earlyStageResourceUrl: '' as string,
