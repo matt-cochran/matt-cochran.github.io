@@ -22,10 +22,6 @@ export const SNAPSHOT_CONFIG = {
   manualReviewCtaUrl: '' as string,
   manualReviewCtaLabel: 'Learn more about the diagnostic',
 
-  /**
-   * Webhook for follow-up form (manual review + disqualified). We POST JSON: { firstName, email, message: { Subject, Outcome } }.
-   * Empty until a production endpoint exists: an unreachable endpoint collects nothing and shows submitters an error.
-   * Set this to the live URL to bring the form back.
-   */
-  followUpFormEndpoint: '' as string,
+  /** Where non-qualified outcomes are invited to write. Leave empty to end those outcomes without a next step. */
+  contactEmail: 'matthew@cochranweb.com' as string,
 } as const;
