@@ -3,8 +3,8 @@
  * Scale Readiness Snapshot — one-question-per-step wizard (reduces cognitive load).
  * Booking link injected only for qualified; every outcome gets a clear next step.
  *
- * Config: src/lib/snapshotConfig.ts (booking URL, disqualified resource, manual-review CTA).
- * Integration: see script submit handler for CRM, analytics, email capture.
+ * Config: src/lib/snapshotConfig.ts (booking URL, disqualified resource, manual-review CTA, contact email).
+ * Qualified outcomes book directly; every other outcome is invited to write.
  */
 import { SNAPSHOT_QUESTIONS } from '../lib/snapshotQuestions';
 import { SNAPSHOT_CONFIG } from '../lib/snapshotConfig';
@@ -16,7 +16,7 @@ const EARLY_STAGE_URL = SNAPSHOT_CONFIG.earlyStageResourceUrl;
 const EARLY_STAGE_LABEL = SNAPSHOT_CONFIG.earlyStageResourceLabel;
 const MANUAL_CTA_URL = SNAPSHOT_CONFIG.manualReviewCtaUrl;
 const MANUAL_CTA_LABEL = SNAPSHOT_CONFIG.manualReviewCtaLabel;
-const FOLLOW_UP_FORM_ENDPOINT = SNAPSHOT_CONFIG.followUpFormEndpoint;
+const CONTACT_EMAIL = SNAPSHOT_CONFIG.contactEmail;
 ---
 
 <div class="snapshot-form-wrapper max-w-[65ch]">
@@ -113,7 +113,7 @@ const FOLLOW_UP_FORM_ENDPOINT = SNAPSHOT_CONFIG.followUpFormEndpoint;
 
 </div>
 
-<script define:vars={{ bookingUrl: BOOKING_URL, calendlyWidgetUrl: CALENDLY_WIDGET_URL, earlyStageUrl: EARLY_STAGE_URL, earlyStageLabel: EARLY_STAGE_LABEL, manualCtaUrl: MANUAL_CTA_URL, manualCtaLabel: MANUAL_CTA_LABEL, totalSteps: TOTAL_STEPS, followUpFormEndpoint: FOLLOW_UP_FORM_ENDPOINT }}>
+<script define:vars={{ bookingUrl: BOOKING_URL, calendlyWidgetUrl: CALENDLY_WIDGET_URL, earlyStageUrl: EARLY_STAGE_URL, earlyStageLabel: EARLY_STAGE_LABEL, manualCtaUrl: MANUAL_CTA_URL, manualCtaLabel: MANUAL_CTA_LABEL, totalSteps: TOTAL_STEPS, contactEmail: CONTACT_EMAIL }}>
   function qualify(answers) {
     const q5 = answers.decisionAuthority ?? '';
     const q6 = answers.budgetIntent ?? '';
@@ -231,7 +231,7 @@ const FOLLOW_UP_FORM_ENDPOINT = SNAPSHOT_CONFIG.followUpFormEndpoint;
     } else if (outcome === 'manual_review') {
       const p = document.createElement('p');
       p.className = 'mb-4 text-[var(--color-text)]';
-      p.textContent = 'Thanks for completing the Snapshot. Your responses suggest there may be a fit; we review a limited number of situations manually before opening calendar access. We\'ll be in touch if we can move forward.';
+      p.textContent = 'Thanks for completing the Snapshot. Your responses suggest there may be a fit; a limited number of situations are reviewed by hand before calendar access opens.';
       const ctaWrap = document.createElement('p');
       ctaWrap.className = 'mt-4';
       if (manualCtaUrl) {
@@ -241,10 +241,10 @@ const FOLLOW_UP_FORM_ENDPOINT = SNAPSHOT_CONFIG.followUpFormEndpoint;
         a.textContent = manualCtaLabel;
         ctaWrap.replaceChildren(a);
       }
-      const emailWrap = document.createElement('div');
-      emailWrap.className = 'mt-6';
-      outcomeContentEl.append(p, ctaWrap, emailWrap);
-      attachFollowUpEmailForm(emailWrap, 'manual_review', 'Want a follow-up? Leave your email.');
+      const contactWrap = document.createElement('div');
+      contactWrap.className = 'mt-6';
+      outcomeContentEl.append(p, ctaWrap, contactWrap);
+      appendContactPrompt(contactWrap, 'Scale Readiness Snapshot — manual review', 'To start that review, send a short note about the situation.');
     } else {
       const p = document.createElement('p');
       p.className = 'mb-4 text-[var(--color-text)]';
@@ -269,97 +269,23 @@ const FOLLOW_UP_FORM_ENDPOINT = SNAPSHOT_CONFIG.followUpFormEndpoint;
         );
         ctaWrap.replaceChildren(para);
       }
-      const emailWrap = document.createElement('div');
-      emailWrap.className = 'mt-6';
-      outcomeContentEl.append(p, ctaWrap, emailWrap);
-      attachFollowUpEmailForm(emailWrap, 'disqualified', 'Get notified when you\'re further along:');
+      const contactWrap = document.createElement('div');
+      contactWrap.className = 'mt-6';
+      outcomeContentEl.append(p, ctaWrap, contactWrap);
+      appendContactPrompt(contactWrap, 'Scale Readiness Snapshot — early stage', 'If you read the timing differently, get in touch.');
     }
   }
 
-  function attachFollowUpEmailForm(container, outcome, promptText) {
-    if (!container || !followUpFormEndpoint) return;
-    const wrap = document.createElement('div');
-    wrap.className = 'flex flex-col gap-4 max-w-sm';
-    wrap.setAttribute('aria-label', 'Get notified');
+  function appendContactPrompt(container, subject, promptText) {
+    if (!container || !contactEmail) return;
     const intro = document.createElement('p');
     intro.className = 'text-sm text-[var(--color-text)]';
     intro.textContent = promptText;
-    wrap.appendChild(intro);
-    const nameWrap = document.createElement('label');
-    nameWrap.className = 'flex flex-col gap-1';
-    const nameLabel = document.createElement('span');
-    nameLabel.className = 'text-sm text-[var(--color-text)]';
-    nameLabel.textContent = 'Name';
-    const nameInput = document.createElement('input');
-    nameInput.type = 'text';
-    nameInput.name = 'firstName';
-    nameInput.required = true;
-    nameInput.placeholder = 'Your name';
-    nameInput.autocomplete = 'name';
-    nameInput.className = 'rounded border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-[var(--color-text)] focus:border-[var(--color-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)]';
-    const nameError = document.createElement('span');
-    nameError.className = 'text-sm text-[var(--color-error)] hidden';
-    nameError.setAttribute('role', 'alert');
-    nameError.id = 'snapshot-followup-name-error';
-    nameWrap.append(nameLabel, nameInput, nameError);
-    const emailWrap = document.createElement('label');
-    emailWrap.className = 'flex flex-col gap-1';
-    const emailLabel = document.createElement('span');
-    emailLabel.className = 'text-sm text-[var(--color-text)]';
-    emailLabel.textContent = 'Email';
-    const emailInput = document.createElement('input');
-    emailInput.type = 'email';
-    emailInput.name = 'email';
-    emailInput.required = true;
-    emailInput.placeholder = 'you@company.com';
-    emailInput.autocomplete = 'email';
-    emailInput.className = 'rounded border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-[var(--color-text)] focus:border-[var(--color-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)]';
-    const emailError = document.createElement('span');
-    emailError.className = 'text-sm text-[var(--color-error)] hidden';
-    emailError.setAttribute('role', 'alert');
-    emailError.id = 'snapshot-followup-email-error';
-    emailWrap.append(emailLabel, emailInput, emailError);
-    wrap.append(nameWrap, emailWrap);
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'self-start rounded border-2 border-[var(--color-primary)] px-4 py-2 font-medium text-[var(--color-text-emphasis)] transition-colors hover:bg-[var(--color-primary)]/10 hover:text-[var(--color-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary)]';
-    btn.textContent = 'Notify me';
-    wrap.append(btn);
-    function doSubmit() {
-      var email = emailInput.value.trim();
-      var name = nameInput.value.trim();
-      showNameError('');
-      showEmailError('');
-      if (!name) { showNameError('Please enter your name.'); nameInput.focus(); return; }
-      if (!email) { showEmailError('Please enter your email.'); emailInput.focus(); return; }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showEmailError('Please enter a valid email address.'); emailInput.focus(); return; }
-      btn.disabled = true;
-      btn.textContent = 'Sending…';
-      var payload = { firstName: name, email: email, message: { Subject: 'Snapshot follow-up', Outcome: outcome } };
-      fetch(followUpFormEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
-        .then(function (res) { if (!res.ok) throw new Error('Request failed'); container.replaceChildren(''); var h = document.createElement('p'); h.className = 'font-medium text-[var(--color-text-headline)]'; h.textContent = 'Thank you.'; var p = document.createElement('p'); p.className = 'mt-2 text-[var(--color-text)]'; p.textContent = "We'll be in touch."; container.appendChild(h); container.appendChild(p); })
-        .catch(function () { btn.disabled = false; btn.textContent = 'Notify me'; var err = document.createElement('p'); err.className = 'text-sm text-[var(--color-error)]'; err.textContent = 'Something went wrong. Try again or email us directly.'; container.appendChild(err); });
-    }
-    btn.addEventListener('click', doSubmit);
-    function showNameError(msg) {
-      nameError.textContent = msg || '';
-      nameError.classList.toggle('hidden', !msg);
-      nameInput.setAttribute('aria-invalid', msg ? 'true' : 'false');
-      if (msg) nameInput.setAttribute('aria-describedby', 'snapshot-followup-name-error');
-      else nameInput.removeAttribute('aria-describedby');
-    }
-    function showEmailError(msg) {
-      emailError.textContent = msg || '';
-      emailError.classList.toggle('hidden', !msg);
-      emailInput.setAttribute('aria-invalid', msg ? 'true' : 'false');
-      if (msg) emailInput.setAttribute('aria-describedby', 'snapshot-followup-email-error');
-      else emailInput.removeAttribute('aria-describedby');
-    }
-    nameInput.addEventListener('input', function () { showNameError(''); });
-    emailInput.addEventListener('input', function () { showEmailError(''); });
-    nameInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); doSubmit(); } });
-    emailInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); doSubmit(); } });
-    container.replaceChildren(wrap);
+    const link = document.createElement('a');
+    link.href = 'mailto:' + contactEmail + '?subject=' + encodeURIComponent(subject);
+    link.className = 'mt-3 inline-block rounded border-2 border-[var(--color-primary)] px-4 py-2 font-medium text-[var(--color-text-emphasis)] transition-colors hover:bg-[var(--color-primary)]/10 hover:text-[var(--color-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary)]';
+    link.textContent = 'Email ' + contactEmail;
+    container.replaceChildren(intro, link);
   }
 
   backBtn.addEventListener('click', () => {
