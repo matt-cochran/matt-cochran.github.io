@@ -2,7 +2,7 @@
 
 ## Blue email assets
 
-Recolors green email icons to steel blue (`#6B8CAE`) and generates circular profile headshots from `assets/images/MC-headshot.png`.
+Recolors green email icons to steel blue (`#6B8CAE`) and generates circular profile headshots from `public/assets/images/MC-headshot.png`.
 
 **Run (from repo root):**
 

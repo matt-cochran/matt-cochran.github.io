@@ -13,8 +13,8 @@ const Jimp = require('jimp');
 const GRAY = 0x5c5c5cff; // Jimp 0xRRGGBBAA - neutral gray
 const GRAY_RGB = { r: 92, g: 92, b: 92 };
 
-const EMAIL_IMAGES = path.join(__dirname, '..', 'assets', 'images', 'email');
-const HEADSHOT_PATH = path.join(__dirname, '..', 'assets', 'images', 'MC-headshot.png');
+const EMAIL_IMAGES = path.join(__dirname, '..', 'public', 'assets', 'images', 'email');
+const HEADSHOT_PATH = path.join(__dirname, '..', 'public', 'assets', 'images', 'MC-headshot.png');
 
 const ICON_FILES = [
   'facebook-24.png', 'facebook-50.png',

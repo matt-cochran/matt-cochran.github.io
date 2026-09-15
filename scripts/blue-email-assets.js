@@ -13,8 +13,8 @@ const Jimp = require('jimp');
 const STEEL_BLUE = 0x6b8caeff; // Jimp 0xRRGGBBAA
 const STEEL_BLUE_RGB = { r: 107, g: 140, b: 174 };
 
-const EMAIL_IMAGES = path.join(__dirname, '..', 'assets', 'images', 'email');
-const HEADSHOT_PATH = path.join(__dirname, '..', 'assets', 'images', 'MC-headshot.png');
+const EMAIL_IMAGES = path.join(__dirname, '..', 'public', 'assets', 'images', 'email');
+const HEADSHOT_PATH = path.join(__dirname, '..', 'public', 'assets', 'images', 'MC-headshot.png');
 
 // Icons to recolor (green -> steel blue)
 const ICON_FILES = [
