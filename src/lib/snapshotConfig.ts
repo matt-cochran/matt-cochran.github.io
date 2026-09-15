@@ -24,8 +24,8 @@ export const SNAPSHOT_CONFIG = {
 
   /**
    * Webhook for follow-up form (manual review + disqualified). We POST JSON: { firstName, email, message: { Subject, Outcome } }.
-   * Test: https://matt-cochran.app.n8n.cloud/webhook-test/send-email — swap to production URL when ready.
-   * Leave empty to hide the follow-up form.
+   * Empty until a production endpoint exists: an unreachable endpoint collects nothing and shows submitters an error.
+   * Set this to the live URL to bring the form back.
    */
-  followUpFormEndpoint: 'https://matt-cochran.app.n8n.cloud/webhook-test/send-email' as string,
+  followUpFormEndpoint: '' as string,
 } as const;
