@@ -1,62 +1,60 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const products = [
+const featuredCompanyProducts = [
   {
-    name: 'Attestrack',
-    type: 'Customer product · open-source core',
-    status: 'Public repository',
-    description: 'First-party, server-side analytics designed to run in infrastructure the customer controls. Attestrue is a separate commercial extension.',
-    evidence: ['Customer-controlled deployment', 'Open-source core', 'Separate commercial extension'],
-    href: 'https://github.com/matt-cochran-products/attestrack',
-    cta: 'Inspect repository',
-    featured: true,
+    name: 'Attestrue',
+    type: 'Evidence & compliance',
+    status: 'Available',
+    description: 'Independent evidence when proof matters—signed records, policy-version evidence, and corroboration for consent and compliance events.',
+    evidence: ['Signed records', 'Policy-version evidence', 'Proof anchors'],
+    href: 'https://attestrue.com',
+    cta: 'Visit Attestrue',
   },
   {
     name: 'Licenz',
     type: 'Developer infrastructure',
-    status: 'Published on crates.io',
-    description: 'Offline-first software-license verification for Rust, built around signed licenses, hardware binding, and an explicit threat model.',
-    evidence: ['Offline verification', 'Rust crate', 'Documented threat model'],
-    href: 'https://github.com/matt-cochran-products/licenz',
-    cta: 'Read the source',
-    featured: true,
+    status: 'Available',
+    description: 'Enterprise airgap licensing in a 2MB Rust binary—offline-first validation, hardware binding, and an auditable open-source client.',
+    evidence: ['Offline-first', 'Air-gapped support', 'MIT-licensed client'],
+    href: 'https://licenz.dev',
+    cta: 'Visit Licenz',
   },
   {
-    name: 'SureShift',
-    type: 'SaaS readiness',
-    status: 'Preview',
-    description: 'A read-only product-readiness scanner for teams evaluating architecture, delivery, and recovery risk before they scale.',
-    evidence: ['Read-only assessment', 'No installed agent', 'Decision-oriented output'],
-    href: 'https://github.com/matt-cochran/sureshift',
-    cta: 'Inspect repository',
+    name: 'Preveti',
+    type: 'Market intelligence',
+    status: 'Early access',
+    description: 'Vet before bet—challenge product assumptions, examine alternatives, and authorize evidence before committing engineering time or capital.',
+    evidence: ['Assumption testing', 'Simulation + human studies', 'Decision records'],
+    href: 'https://preveti.com',
+    cta: 'Visit Preveti',
   },
   {
-    name: 'Synapate',
-    type: 'Emerging product',
-    status: 'Coming soon',
-    description: 'An emerging product in the Matthew Cochran Products portfolio. Public details will follow as the product is ready for evaluation.',
-    evidence: ['Status stated plainly', 'No premature claims'],
-    href: 'https://github.com/matt-cochran-products',
-    cta: 'Follow the organization',
+    name: 'Allumata',
+    type: 'Engineered content',
+    status: 'Available',
+    description: 'Engineered content for agencies—structural specs, validation rubrics, and signal loops so copy is manufactured to an outcome, not guessed at.',
+    evidence: ['Structural analysis', 'Side-by-side audit', 'Section-level attribution'],
+    href: 'https://allumata.com',
+    cta: 'Visit Allumata',
+  },
+  {
+    name: 'PubOps',
+    type: 'Public posture',
+    status: 'In development',
+    description: 'The operations plane for public posture—inspect legacy claims, authorize repositioning moves, and govern required expressions across channels.',
+    evidence: ['Posture-gap review', 'Human-authorized moves', 'Evidence-bounded'],
+    href: 'https://pubops.ai',
+    cta: 'Visit PubOps',
   },
   {
     name: 'FrontRails',
-    type: 'Praxec capability pack',
-    status: 'Open-source work',
-    description: 'A Praxec pack exposing governed product and engineering capabilities, including IntentOS and StructureOS.',
-    evidence: ['Governed capabilities', 'Part of Praxec', 'Public source'],
-    href: 'https://github.com/praxec',
-    cta: 'Explore Praxec',
-  },
-  {
-    name: 'Sound Playground',
-    type: 'Local-first application',
-    status: 'Public releases',
-    description: 'A product exploration in local, privacy-conscious audio experiences for children.',
-    evidence: ['Local-first direction', 'Public release repository'],
-    href: 'https://github.com/matt-cochran-products',
-    cta: 'View product organization',
+    type: 'MCP tools suite',
+    status: 'Available',
+    description: 'A suite of MCP tools for teams who want LLM speed without drift, rework, or broken flows—intent, structure, security, and UX aligned to what actually ships.',
+    evidence: ['MCP tool suite', 'Local CLI control layer', 'System-level alignment'],
+    href: 'https://frontrails.com',
+    cta: 'Visit FrontRails',
   },
 ];
 
@@ -82,7 +80,7 @@ const outcomes = [
 
 <BaseLayout
   title="Matthew Cochran — Product Builder, Engineering Leader & AI Systems Specialist"
-  description="Products, open-source systems, and leadership work by Matthew Cochran: a hands-on CTO and product-engineering leader specializing in dependable governed AI."
+  description="Matthew Cochran: product and engineering leadership, open-source systems, and dependable governed AI. Commercial products at MC Product Labs."
 >
   <section class="hero" aria-labelledby="hero-title">
     <div class="shell hero-layout">
@@ -92,13 +90,14 @@ const outcomes = [
         <p class="hero-lede">Senior operator with 25+ years across product, project, and technical leadership.</p>
         <p class="hero-context">Former CTO of publicly traded Artnet and Founder/CTO at TruthShield. Specializing in production-oriented governed AI: deterministic execution, cognitive architectures, and policy-gated controls. I personally ship software while leading technical organizations and product turnarounds.</p>
         <div class="hero-actions">
-          <a class="button primary" href="#products">Explore products</a>
+          <a class="button primary" href="#product-company">MC Product Labs</a>
+          <a class="hero-text-cta" href="#praxec">Open source <span aria-hidden="true">→</span></a>
           <a class="hero-text-cta" href="/resume/">View résumé <span aria-hidden="true">→</span></a>
         </div>
       </div>
       <aside class="hero-profile reveal delay-1" aria-label="Profile summary">
         <div class="portrait-frame"><img src="/assets/images/MC-headshot.png" alt="Matthew Cochran" /></div>
-        <dl class="profile-facts"><div><dt>Location</dt><dd>New York, NY / Remote</dd></div><div><dt>Current work</dt><dd>Praxec AI execution kernel &amp; CPM-driven agentic workflows</dd></div></dl>
+        <dl class="profile-facts"><div><dt>Location</dt><dd>New York, NY / Remote</dd></div><div><dt>Current work</dt><dd>MC Product Labs · FrontRails · Praxec OSS</dd></div></dl>
       </aside>
     </div>
   </section>
@@ -111,14 +110,17 @@ const outcomes = [
     </div>
   </section>
 
-  <section id="products" class="section shell" aria-labelledby="products-title">
+  <section id="product-company" class="section shell" aria-labelledby="product-company-title">
     <header class="section-heading reveal">
-      <div><p class="kicker">Solutions for SaaS Privacy, Security &amp; Release Governance</p><h2 id="products-title">Product Catalog</h2></div>
-      <p>Customer-facing products, developer infrastructure, and emerging work—each labeled by what is available today, with a direct path to evidence.</p>
+      <div><p class="kicker">Product company</p><h2 id="product-company-title">Commercial work lives at <em>MC Product Labs</em>.</h2></div>
+      <p>Evidence-driven products and business experiments—built and stewarded through the LLC. FrontRails MCP tools, the open-source Praxec harness, and advisory work remain here on CochranWeb.</p>
     </header>
+    <div class="product-company-actions reveal">
+      <a class="button primary" href="https://mcproductlabs.com" target="_blank" rel="noopener noreferrer">Explore MC Product Labs <span aria-hidden="true">↗</span></a>
+    </div>
     <div class="product-grid">
-      {products.map((product, index) => (
-        <article class:list={['product-card', { featured: product.featured }, 'reveal']} style={`--order:${index}`}>
+      {featuredCompanyProducts.map((product, index) => (
+        <article class="product-card reveal" style={`--order:${index}`}>
           <div class="card-meta"><span>{product.type}</span><strong>{product.status}</strong></div>
           <h3>{product.name}</h3>
           <p>{product.description}</p>
@@ -132,16 +134,16 @@ const outcomes = [
   <section id="praxec" class="family family-dark">
     <div class="shell family-layout">
       <header class="family-intro reveal">
-        <p class="kicker">Open Source Ecosystem</p>
+        <p class="kicker">Open Source · Praxec</p>
         <h2>Safe AI requires <em>deterministic</em> boundaries.</h2>
-        <p>Praxec is a production-oriented foundation for putting deterministic boundaries around probabilistic models—so teams can use AI while retaining control over state, tools, approvals, and evidence.</p>
+        <p>Praxec is an open-source agentic harness—hosting workflows, enforcing policy gates, and retaining control over state, tools, approvals, and evidence while models do probabilistic work.</p>
         <a class="text-link" href="https://github.com/praxec" target="_blank" rel="noopener noreferrer">Explore the Praxec organization ↗</a>
       </header>
       <div class="family-modules">
-        <article><span>01</span><h3>Execution kernel</h3><p>Legal workflow transitions and authoritative gates live in code, not in model interpretation.</p></article>
+        <article><span>01</span><h3>The harness</h3><p>Hosts agentic workflows with legal transitions, durable policy gates, human approval, and audit trails—authority in code, not model interpretation.</p></article>
         <article><span>02</span><h3>Cognitive architectures</h3><p>Structured, governed approaches for discovery, analysis, FMECA, implementation, and verification.</p></article>
-        <article><span>03</span><h3>Deterministic MCP tools</h3><p>CPM planning, elicitation, scientific process, cross-matrix analysis, corpus work, and operational utilities.</p></article>
-        <article><span>04</span><h3>FrontRails</h3><p>A Praxec capability pack for governed product and engineering work, including IntentOS and StructureOS.</p></article>
+        <article><span>03</span><h3>Deterministic MCP tools</h3><p>Open-source utilities—CPM planning, elicitation, scientific process, cross-matrix analysis, corpus work, and operational tools—that plug into the harness.</p></article>
+        <article><span>04</span><h3>FrontRails integration</h3><p>The commercial <a href="https://frontrails.com" target="_blank" rel="noopener noreferrer">FrontRails</a> MCP tools suite runs on the harness—intent, structure, security, and UX aligned to what actually ships.</p></article>
       </div>
     </div>
   </section>

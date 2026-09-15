@@ -118,6 +118,7 @@ a { color: inherit; }
 .section-heading { display: grid; grid-template-columns: 1.45fr .65fr; gap: 80px; margin-bottom: 58px; padding-bottom: 34px; border-bottom: 1px solid var(--line); }
 .section-heading h2, .family-intro h2, .method-content h2, .engagement h2 { margin: 0; color: var(--ink); font-size: clamp(2.3rem,4.3vw,4.9rem); font-weight: 500; line-height: 1.02; letter-spacing: -.055em; }
 .section-heading > p { align-self: end; margin: 0; color: #666960; font-size: .88rem; line-height: 1.7; }
+.product-company-actions { margin-bottom: 42px; }
 .product-grid { display: grid; grid-template-columns: repeat(12,1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
 .product-card { grid-column: span 4; min-height: 380px; display: flex; flex-direction: column; padding: 30px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--paper) 88%, white); transition: transform var(--duration-base) var(--ease-out), background var(--duration-fast); }
 .product-card.featured { grid-column: span 6; min-height: 420px; }
