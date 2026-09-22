@@ -151,6 +151,9 @@ a { color: inherit; }
 .tflo-stack span { font: 400 .56rem var(--mono); text-transform: uppercase; letter-spacing: .08em; color: #81847b; }
 .tflo-stack h3 { margin: 6px 0 0; color: var(--ink); font-size: 1.45rem; letter-spacing: -.03em; }
 .tflo-stack p { margin: 0; color: #696c64; font-size: .84rem; line-height: 1.65; }
+.family-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 26px; margin-top: 34px; }
+.family .button.primary { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.family .button.primary:hover { background: #fff; color: var(--ink); border-color: #fff; }
 
 .outcomes { border-top: 1px solid var(--line); }
 .outcome { display: grid; grid-template-columns: .7fr 1fr 1.25fr; gap: 40px; padding: 38px 0; border-bottom: 1px solid var(--line); }
