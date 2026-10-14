@@ -509,3 +509,18 @@ button:focus:not(:focus-visible) {
   .hero-lede { margin-top: 40px; padding-top: 40px; }
   .product-grid { grid-template-columns: 1fr; }
 }
+
+/* Resume downloads and readable experience bullets. */
+.resume-downloads a { display: block; padding: 16px; border: 1px solid var(--rule); font-size: 1rem !important; line-height: 1.5; color: var(--navy); background: white; }
+.resume-downloads a:hover { border-color: var(--steel); }
+.resume-downloads p { margin: 8px 0 24px; font-size: .85rem; line-height: 1.6; }
+.resume-timeline ul.role-copy { margin: 0; padding-left: 1.2em; list-style: disc; }
+.resume-timeline .role-copy li { margin-bottom: 12px; line-height: 1.7; }
+.resume-evidence { margin-top: 28px; line-height: 1.6; }
+.resume-evidence a { text-decoration: underline; }
+.resume-earlier { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--rule); }
+.resume-earlier p { margin-top: 12px; }
+.resume-approved-hero aside .resume-downloads { padding: 0; border: 0; background: transparent; gap: 0; }
+.resume-approved-hero aside p.kicker { margin: 0; font-size: .8rem; }
+.resume-approved-hero aside .resume-downloads p { margin: 8px 0 24px; font-size: .85rem; line-height: 1.6; }
+.resume-approved-hero aside > div:not(.resume-downloads) p { margin: 0; font-size: .85rem; }
