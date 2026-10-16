@@ -1,10 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/PageHeader.astro';
-import { getCollection } from 'astro:content';
-const posts = (await getCollection('blog')).sort((a,b)=>b.data.pubDate.valueOf()-a.data.pubDate.valueOf());
+import { publishedPosts } from '../../lib/posts';
+const posts = await publishedPosts();
 ---
 <BaseLayout title="Writing — Matthew Cochran" description="Notes on product development, engineering leadership, governed AI, architecture, delivery, and scale readiness.">
   <PageHeader eyebrow="Writing / Field notes" title="Working ideas, made inspectable." description="Notes from building products, leading technical systems, recovering difficult programs, and making AI-assisted engineering more governable." aside={`${posts.length} published note${posts.length === 1 ? '' : 's'}`} />
-  <section class="section shell"><div class="post-list">{posts.map((post,index)=><a href={`/blog/${post.id.replace(/\.(md|mdx)$/,'')}/`}><span>0{index+1}</span><div><h2>{post.data.title}</h2>{post.data.description && <p>{post.data.description}</p>}</div><time datetime={post.data.pubDate.toISOString()}>{post.data.pubDate.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'})}</time></a>)}</div></section>
+  <section class="section shell" aria-label="Find an article"><p><a href="/search/">Search articles</a> · <a href="/rss.xml">Subscribe with RSS</a></p></section>
+  <section class="section shell"><div class="post-list">{posts.map((post,index)=><a href={`/blog/${post.id.replace(/\.(md|mdx)$/,'')}/`}><span>0{index+1}</span><div><h2>{post.data.title}</h2>{post.data.description && <p>{post.data.description}</p>}</div><time datetime={post.data.pubDate.toISOString()}>{post.data.pubDate.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric',timeZone:'UTC'})}</time></a>)}</div></section>
 </BaseLayout>

@@ -1,52 +1,73 @@
 ---
-title: "Introducing Jevitate: neural browser automation with a deterministic spine"
-description: "Jevitate is an open-source, local-first browser-automation and testing platform—typed Journeys over Playwright, autonomous exploration bounded by hard guardrails, and a safe MCP surface for agents."
+title: "Catch a failed save even when the page says Saved"
+description: "Use Jevitate to investigate a misleading success message, inspect browser evidence, and recheck a fix against the failure that prompted it."
 pubDate: 2026-09-22
+updatedDate: 2026-10-16
+tags: [Jevitate, browser testing, regression testing]
+heroImage: /assets/blog/jevitate-launch-banner.svg
+heroDecorative: true
+heroAlt: ""
+heroWidth: 1440
+heroHeight: 320
 ---
 
-I've released [Jevitate](https://jevitate.com), an open-source browser-automation and testing platform, under the MIT license. It records real browser sessions into reusable, typed **Journeys**, then replays, load-tests, explores, and reviews them from a single CLI—or from an MCP server that coding agents can drive directly.
+You edit a profile, click Save, and see a confirmation. You reload the page. Your old name is still there.
 
-The short version: `npm i -g @jevitate/cli`, and the source is at [github.com/matt-cochran/jevitate](https://github.com/matt-cochran/jevitate).
+A test that checks only for the confirmation message can miss this failure. To catch it, you need to check what happened to the request and whether the application kept the change.
 
-## The problem it solves
+This is the example I use to explain [Jevitate](https://jevitate.com), the browser-testing tool I'm building. Its repository includes a deliberately broken profile form: a name containing characters outside Latin-1 makes the server return HTTP 500, but the page still says “Saved.” The form checks for 4xx errors and misses the server failure.
 
-Most browser testing sits at one of two unhappy extremes. On one end are brittle scripts you hand-write and then hand-maintain—every selector a hostage to the next UI change. On the other are opaque record-and-replay tools that capture a click stream but break the moment anything shifts, with no artifact you can reason about.
+You can use that local example to follow a failure from discovery to a replayable check, without API keys.
 
-More recently there's a third temptation: hand the whole thing to a model and let it "test the app." That fails in a different way. A model narrating its own success is not evidence. If the thing deciding whether a run passed is the same thing that produced the run, you don't have a test—you have a story.
+## Decide what a successful save means
 
-## The approach
+Before running a browser tool, write down the behavior you expect. For this form, there are three separate observations:
 
-Jevitate makes the browser flow a **deterministic, typed artifact** you can replay, parameterize, load-test, and inspect—and it adds AI only where semantic judgment genuinely helps: driving toward a goal, finding defects, reviewing usability. The governing principle is simple:
+- The page shows a confirmation.
+- The save request succeeds.
+- The saved name survives a reload.
 
-> Model decisions are hypotheses to verify. Runtime evidence decides pass or fail.
+The confirmation is useful feedback, but it cannot establish the other two. In the broken example, it actively misleads you.
 
-Autonomous exploration is driven by [TypeSafe's Jev](https://typesafe.ai) judgment model, but success is always adjudicated by an independent assertion against real runtime state—never the model's say-so. That separation is the whole point.
+Jevitate's demo also declares an invariant: when the page says Saved, the server should hold the name that was entered. An invariant is a rule the application should continue to satisfy. Writing that rule explicitly gives the test something concrete to check.
 
-## What's in it
+For your application, choose the observation that matches the user's actual goal. A checkout confirmation might need a matching order record. A settings change might need to survive a new session. Keep the check specific enough that a failure tells you what to investigate.
 
-- **Record → replay.** Capture a flow by demonstration into a deterministic recording, then parameterize and promote it to a replayable Journey (Screenplay-pattern actions over Playwright).
-- **Goal-directed exploration.** Drive to a natural-language goal; a separate assertion decides whether you actually got there.
-- **Feature, exploratory, and adversarial testing.** Capability-scoped path discovery, state-coverage exploration, and bounded misuse checked by a trusted hard-signal defect oracle.
-- **Regression artifacts.** Turn a reproducible failure into a minimized, deterministic, replayable regression.
-- **Self-healing under policy.** Repair a broken step within bounds—never auto-healing a write or an irreversible action.
-- **UX review.** Ranked, cited, evidence-anchored usability findings drawn from Nielsen and cognitive-science heuristics—advisory only.
-- **Load testing** of a Journey against an origin you're authorized to hit.
-- **An MCP server** that exposes only an allowlisted, safe tool surface to agents like Claude Code, Codex, and Cursor.
+## Run the broken form locally
 
-## Safety is a design constraint, not a footnote
+The [source demo instructions](https://github.com/matt-cochran/jevitate/blob/73d164896cfc4faf001ca437bef3bf91cc317fa3/docs/demo.md) cover cloning the repository, building its CLI, installing Chromium, and starting the example app. They require Node.js 20 or newer and pnpm 9. Use the CLI built from that checkout so the example and its commands match.
 
-Every autonomous run is bounded—step, time, and budget caps by default—and restricted to origins you explicitly authorize. Secrets are origin-bound and never stored, and credentials are never sent to a model. Self-healing will fix a flaky read; it will not silently rewrite a destructive action. These aren't warnings in a README; they're invariants the tool is built to hold.
-
-This is the same conviction that runs through the rest of my work: let probabilistic systems do the probabilistic part, and keep authority—state, tools, approvals, and evidence—in code you can audit.
-
-## Try it
+With the app running, run this from the repository root using that CLI:
 
 ```bash
-npm i -g @jevitate/cli
-jevitate init
-jevitate record --url https://example.test
-jevitate explore --url https://example.test --goal "reach the confirmation page" --success urlIncludes:/confirmed
-jevitate mcp   # start the allowlisted MCP server for your agent
+jevitate explore --strategy adversarial \
+  --url http://127.0.0.1:5190/demo/profile \
+  --invariants apps/example-site/demo-invariants.json \
+  --fake-ai --out demo-runs
 ```
 
-Docs and examples live at [jevitate.com](https://jevitate.com), and the code—issues and contributions welcome—is on [GitHub](https://github.com/matt-cochran/jevitate). If you put it to work, I'd genuinely like to hear what breaks and what holds.
+The adversarial strategy tries inputs and interactions such as empty values, Unicode, repeated submissions, and actions during a pending save. Here, `--fake-ai` replaces advisory model calls with deterministic stand-ins. The browser still interacts with the local application, and code evaluates the failure signals.
+
+The documented demo reports two findings: the HTTP 500 and the broken saved-value invariant. Treat those as expected results to compare with your run. If your output differs, inspect the result and environment before drawing a conclusion. An exit code of 1 from this exploration means defects were found.
+
+## Inspect the failure before changing code
+
+Open the result file reported by the command. Find the defect's fingerprint, the steps leading to it, and its associated Recording. A fingerprint identifies the finding for later checks; the Recording contains the browser steps needed to replay it.
+
+For this bug, inspect both the failed request and the mismatch between the entered and stored name. Together, they explain why a user could see a success message and still lose the edit.
+
+That evidence gives you a narrower debugging task: investigate the server's handling of the input and the form's handling of a failed response. You can make that decision without accepting a model's explanation of what went wrong.
+
+## Recheck the same failure after the fix
+
+Use `verify-fix` with the result path and fingerprint from your run:
+
+```bash
+jevitate verify-fix --result <result.json> --fingerprint <fingerprint>
+```
+
+Replace the placeholders with the actual values. This command replays the finding and reports a verdict with a reason. A result can still reproduce, be fixed under the checks that ran, be intermittent, or remain inconclusive. An incomplete replay gives you no basis for declaring the bug fixed.
+
+If you want a regression you can keep with the code, the demo shows how to capture the invariant violation and run it again after enabling the example app's fix. The HTTP 500 and the invariant take different paths: a hard-signal finding can be rechecked with `verify-fix`, while the declared invariant can become a standalone regression. The [verification reference](https://github.com/matt-cochran/jevitate/blob/73d164896cfc4faf001ca437bef3bf91cc317fa3/docs/verification.md) explains which failures capture supports.
+
+For your next save-flow test, reload after the confirmation and check the value the user expected to keep. If that check fails, retain the request evidence and replay steps before changing the code.
