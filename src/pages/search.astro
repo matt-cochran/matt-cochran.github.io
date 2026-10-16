@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+---
+<BaseLayout title="Search articles — Matthew Cochran" description="Search technical articles by Matthew Cochran.">
+  <PageHeader eyebrow="Writing / Search" title="Search articles" description="Find a workflow, engineering decision, or example." /><section class="section shell">
+    <div id="search"></div><p id="search-status" role="status"></p>
+    <noscript>Search needs JavaScript. <a href="/blog/">Browse all articles</a>.</noscript>
+  </section>
+  <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+  <script is:inline src="/pagefind/pagefind-ui.js"></script>
+  <script is:inline>
+    if (window.PagefindUI) new window.PagefindUI({element:'#search',showSubResults:true,showImages:false});
+    else document.getElementById('search-status').textContent='Search is available after a production build. You can browse all articles from Writing.';
+  </script>
+</BaseLayout>

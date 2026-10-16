@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="320" viewBox="0 0 1440 320" fill="none">
+<!-- Cochranweb editorial banner v1; motif: grid; stable variation by article slug. -->
+<defs><pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="#162536" opacity=".12"/></pattern><linearGradient id="paper"><stop stop-color="#e9e5db"/><stop offset=".55" stop-color="#f2efe8"/><stop offset="1" stop-color="#e9e5db"/></linearGradient></defs>
+<path fill="url(#paper)" d="M0 0h1440v320H0z"/><path fill="url(#dots)" d="M0 0h1440v320H0z"/>
+<g stroke="#cfc9be" opacity=".65"><path d="M103 48V272"/><path d="M263 48V272"/><path d="M423 48V272"/><path d="M583 48V272"/><path d="M743 48V272"/><path d="M903 48V272"/><path d="M1063 48V272"/><path d="M1223 48V272"/><path d="M1383 48V272"/><path d="M48 64H1392"/><path d="M48 128H1392"/><path d="M48 192H1392"/><path d="M48 256H1392"/></g>
+      <path d="M-24 256H263V192H583V128H1063V64H1464" stroke="#162536" stroke-width="3" stroke-linejoin="round"/>
+      <circle cx="263" cy="192" r="7" fill="#f2efe8" stroke="#162536" stroke-width="2"/><circle cx="583" cy="128" r="7" fill="#f2efe8" stroke="#162536" stroke-width="2"/><circle cx="1063" cy="64" r="7" fill="#f2efe8" stroke="#162536" stroke-width="2"/>
+      <g fill="#567a9b" opacity=".2"><rect x="423" y="64" width="160" height="64"/><rect x="903" y="192" width="160" height="64"/></g><path d="M0 319.5H1440" stroke="#cfc9be"/>
+</svg>

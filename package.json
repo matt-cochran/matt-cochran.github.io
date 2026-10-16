@@ -7,12 +7,27 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview"
+    "build": "astro build && pagefind --site dist",
+    "preview": "astro preview",
+    "image:header": "node scripts/header-image.mjs",
+    "test:editorial": "node --test scripts/header-image.test.mjs scripts/publishing.test.mjs scripts/banner.test.mjs",
+    "article:new": "node scripts/article.mjs new",
+    "article:banner": "node scripts/article.mjs banner"
   },
   "dependencies": {
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.3.2",
     "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.20",
+    "pagefind": "^1.5.2"
+  },
+  "overrides": {
+    "@tailwindcss/typography": {
+      "postcss-selector-parser": "^7.1.6"
+    }
   }
 }
