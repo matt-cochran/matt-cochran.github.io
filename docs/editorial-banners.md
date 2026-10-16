@@ -2,6 +2,8 @@
 
 Approved by Matt October 16, 2026, using the Jevitate Journey banner as the reference. The original is public/assets/blog/jevitate-journey-banner.svg. scripts/banner-style.mjs is the shared executable specification. Keep that original as a reference when changing the generator.
 
+Each canonical article must have its own custom SVG. Reuse the visual style, never another article's artwork. Social feeder posts reuse only the SVG belonging to the article they link to. Confirmed by Matt October 16, 2026.
+
 ## Visual rules
 
 Use a 1440 by 320 viewBox, roughly 4.5 to 1. Display the banner with its natural aspect ratio below the title and summary, and repeat the same asset after the article text to frame the reading experience. The closing banner follows the text column and loads lazily. Both instances are decorative. Keep the warm paper background, faint dot texture, navy main structure, muted blue secondary details, and subtle rules. Colors match the site's paper (#f2efe8), deeper paper (#e9e5db), navy (#162536), steel blue (#567a9b), and border (#cfc9be).
