@@ -34,3 +34,12 @@ Close articles with Best, and the original Matt Cochran handwritten signature fr
 
 
 Optional implementation notes belong in src/article-notes/<article-slug>.md. The shared article layout renders them in an expandable section after the signature and before the closing banner, keeping the main Markdown focused on the reader's problem.
+
+
+## Weekly newsletter signup
+
+The shared layout renders the MC Product Labs Weekly signup block; do not add it to individual article Markdown. The verified Kit form is https://mc-product-labs.kit.com/795deb861b (form 10056639, UID 795deb861b). It uses email confirmation with auto-confirm off. The official Kit browser helper posts directly to Kit; the hosted link remains available without JavaScript. No API keys belong in this site.
+
+The signup follows the sign-off, technical notes and closing artwork, and stays out of Pagefind article text.
+
+The newsletter is a brief weekly digest: initially two useful highlights, growing to three when warranted, with short takeaways and links to evergreen articles. Bizops owns preparation, review and sending. Creating the form or passing a site build does not approve newsletter copy or enable campaign delivery.
