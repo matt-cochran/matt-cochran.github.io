@@ -3,11 +3,11 @@ import { newsletter } from '../config/newsletter';
 ---
 {newsletter.signupUrl && <section class="newsletter-signup not-prose" aria-label="MC Product Labs newsletter" data-pagefind-ignore>
   <p class="newsletter-label">MC Product Labs Weekly</p>
-  <h2>Keep building. Get the next field note.</h2>
-  <p>Practical lessons on AI agents, developer tools, and building products. One email a week from Matt, with articles and demos you can put to use.</p>
+  <h2>Lean product development, once a week.</h2>
+  <p>Short highlights on product research, experiments, and software engineering—with links to useful tools and full articles.</p>
   <form action={`https://app.kit.com/forms/${newsletter.formId}/subscriptions`} method="post" class="seva-form formkit-form" data-sv-form={newsletter.formId} data-uid={newsletter.uid} data-format="inline" data-version="5" data-options={newsletter.options}>
     <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert" aria-live="polite"></ul>
-    <div class="newsletter-fields formkit-fields" data-element="fields"><div class="formkit-field"><label for="article-newsletter-email">Your email address</label><input class="formkit-input" id="article-newsletter-email" type="email" name="email_address" placeholder="you@example.com" autocomplete="email" required /></div><button class="newsletter-button formkit-submit" type="submit" data-element="submit"><span>Get the weekly notes →</span></button></div>
+    <div class="newsletter-fields formkit-fields" data-element="fields"><div class="formkit-field"><label for="article-newsletter-email">Your email address</label><input class="formkit-input" id="article-newsletter-email" type="email" name="email_address" placeholder="you@example.com" autocomplete="email" required /></div><button class="newsletter-button formkit-submit" type="submit" data-element="submit"><span>Get the weekly newsletter →</span></button></div>
     <a class="newsletter-kit" href="https://kit.com/features/forms" rel="nofollow noopener" target="_blank">Built with Kit</a>
   </form>
   <noscript><a href={newsletter.signupUrl}>Subscribe on Kit →</a></noscript>
