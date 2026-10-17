@@ -1,0 +1,28 @@
+---
+import { newsletter } from '../config/newsletter';
+---
+{newsletter.signupUrl && <section class="newsletter-signup not-prose" aria-label="MC Product Labs newsletter" data-pagefind-ignore>
+  <p class="newsletter-label">MC Product Labs Weekly</p>
+  <h2>Keep building. Get the next field note.</h2>
+  <p>Practical lessons on AI agents, developer tools, and building products. One email a week from Matt, with articles and demos you can put to use.</p>
+  <form action={`https://app.kit.com/forms/${newsletter.formId}/subscriptions`} method="post" class="seva-form formkit-form" data-sv-form={newsletter.formId} data-uid={newsletter.uid} data-format="inline" data-version="5" data-options={newsletter.options}>
+    <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert" aria-live="polite"></ul>
+    <div class="newsletter-fields formkit-fields" data-element="fields"><div class="formkit-field"><label for="article-newsletter-email">Your email address</label><input class="formkit-input" id="article-newsletter-email" type="email" name="email_address" placeholder="you@example.com" autocomplete="email" required /></div><button class="newsletter-button formkit-submit" type="submit" data-element="submit"><span>Get the weekly notes →</span></button></div>
+    <a class="newsletter-kit" href="https://kit.com/features/forms" rel="nofollow noopener" target="_blank">Built with Kit</a>
+  </form>
+  <noscript><a href={newsletter.signupUrl}>Subscribe on Kit →</a></noscript>
+  <small>Free to join. Confirm by email. Unsubscribe whenever you like.</small>
+</section>}
+<script is:inline src="https://f.convertkit.com/ckjs/ck.5.js" defer></script>
+<style>
+.newsletter-signup{margin-block:3rem 1rem;padding:clamp(1.5rem,4vw,2.5rem);border:1px solid var(--line);border-top:4px solid var(--navy);border-radius:8px;background:var(--paper-deep);font-family:var(--sans);color:var(--ink)}
+.newsletter-label{margin:0 0 .9rem;font:500 .7rem/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--navy)}
+.newsletter-signup h2{margin:0 0 1rem;font:500 clamp(1.6rem,3vw,2rem)/1.2 var(--serif);letter-spacing:-.02em;color:var(--navy)}
+.newsletter-signup p:not(.newsletter-label){margin:0 0 1.4rem;font-size:1rem;line-height:1.7}
+.newsletter-button{display:inline-flex;align-items:center;justify-content:space-between;gap:1.5rem;min-height:48px;padding:.85rem 1.2rem;border-radius:5px;background:var(--navy);color:var(--paper);font-weight:600;text-decoration:none}
+.newsletter-button:hover{background:var(--steel)}.newsletter-button:focus-visible{outline:3px solid var(--steel);outline-offset:4px}
+.newsletter-signup small{display:block;margin-top:1rem;font-size:.8rem;line-height:1.5;color:var(--color-text)}
+.newsletter-fields{display:flex;align-items:end;gap:.75rem}.formkit-field{flex:1;min-width:0}.formkit-field label{display:block;margin-bottom:.4rem;font-size:.85rem;font-weight:600}.formkit-input{box-sizing:border-box;min-height:48px;width:100%;padding:.8rem;border:1px solid var(--line);border-radius:5px;background:var(--paper);color:var(--ink);font:inherit}.newsletter-button{border:0;cursor:pointer;font:600 .9rem/1.4 var(--sans)}.newsletter-kit{display:inline-block;margin-top:.8rem;font-size:.75rem}.formkit-alert:empty{display:none}.formkit-alert{padding:1rem;border:1px solid var(--steel);border-radius:5px;list-style:none}.formkit-submit[data-active]{opacity:.6}.formkit-alert-success,.seva-custom-content{line-height:1.6}
+@media(max-width:640px){.newsletter-fields{flex-direction:column;align-items:stretch}.newsletter-button{justify-content:center}}
+@media(max-width:540px){.newsletter-button{display:flex;gap:1rem}.newsletter-signup{margin-block:2rem 0}}
+</style>

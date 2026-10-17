@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleSignoff from '../../components/ArticleSignoff.astro';
+import NewsletterSignup from '../../components/NewsletterSignup.astro';
 import { render } from 'astro:content';
 import { publishedPosts, postUrl } from '../../lib/posts';
 export async function getStaticPaths() { return (await publishedPosts()).map(post => ({params:{slug:post.id.replace(/\.(md|mdx)$/,'')},props:{post}})); }
@@ -36,7 +37,7 @@ const schema={ '@context':'https://schema.org', '@type':'BlogPosting', headline:
     </div></header>
     <div class="shell article-layout"><aside data-pagefind-ignore><span>Matthew Cochran</span><p>Product Architect</p>
       {headings.some(h=>h.depth===2) && <nav aria-label="Article contents"><details class="article-contents"><summary>On this page</summary><ul>{headings.filter(h=>h.depth===2).map(h=><li><a href={'#'+h.slug}>{h.text}</a></li>)}</ul></details></nav>}
-    </aside><div class="article-prose prose md:prose-lg"><Content /><ArticleSignoff />{Notes && <details class="article-technical-notes"><summary>Technical scope and implementation sources</summary><Notes /></details>}{post.data.heroImage && <img class="article-end-banner" src={post.data.heroImage} alt="" aria-hidden="true" data-pagefind-ignore width={post.data.heroWidth} height={post.data.heroHeight} loading="lazy" decoding="async" />}</div></div>
+    </aside><div class="article-prose prose md:prose-lg"><Content /><ArticleSignoff />{Notes && <details class="article-technical-notes"><summary>Technical scope and implementation sources</summary><Notes /></details>}{post.data.heroImage && <img class="article-end-banner" src={post.data.heroImage} alt="" aria-hidden="true" data-pagefind-ignore width={post.data.heroWidth} height={post.data.heroHeight} loading="lazy" decoding="async" />}<NewsletterSignup /></div></div>
   </article>
 </BaseLayout>
 <style>.article-technical-notes{margin-top:1.75rem}.article-technical-notes summary{cursor:pointer}.article-end-banner{display:block;width:100%;height:auto;margin-block:3rem 0;border-radius:8px}.article-hero{width:100%;height:auto;border-radius:8px;margin-block:2rem}aside ul{padding-left:1rem}aside li{margin-block:.6rem}</style>
