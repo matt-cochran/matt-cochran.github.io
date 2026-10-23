@@ -4,7 +4,7 @@ description: "Five habits from the scientific method that catch what passing tes
 pubDate: 2026-10-27
 draft: false
 tags: [AI agents, software development, testing, experimentation]
-heroImage: /assets/blog/scientific-method-agentic-development-banner.svg
+heroImage: /assets/blog/scientific-method-agentic-development-banner-v2.svg
 heroDecorative: true
 heroAlt: ""
 heroWidth: 1440

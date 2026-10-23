@@ -4,7 +4,7 @@ description: "Crossmatrix keeps needs, features, code, tests and risks cross-ref
 pubDate: 2026-11-10
 draft: false
 tags: [traceability, testing, Crossmatrix, AI agents]
-heroImage: /assets/blog/crossmatrix-traceability-banner.svg
+heroImage: /assets/blog/crossmatrix-traceability-banner-v2.svg
 heroDecorative: true
 heroAlt: ""
 heroWidth: 1440

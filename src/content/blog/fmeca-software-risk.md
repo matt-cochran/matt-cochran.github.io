@@ -4,7 +4,7 @@ description: "FMECA for software: name the failure modes, let a fixed matrix sco
 pubDate: 2026-11-04
 draft: false
 tags: [FMECA, risk, AI agents, Junior]
-heroImage: /assets/blog/fmeca-software-risk-banner.svg
+heroImage: /assets/blog/fmeca-software-risk-banner-v2.svg
 heroDecorative: true
 heroAlt: ""
 heroWidth: 1440

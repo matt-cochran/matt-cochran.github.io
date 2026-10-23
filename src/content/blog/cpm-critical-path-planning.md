@@ -4,7 +4,7 @@ description: "CPM planning for agent work: deliverables as artifacts, a critical
 pubDate: 2026-11-02
 draft: false
 tags: [CPM, planning, AI agents, Junior]
-heroImage: /assets/blog/cpm-critical-path-planning-banner.svg
+heroImage: /assets/blog/cpm-critical-path-planning-banner-v2.svg
 heroDecorative: true
 heroAlt: ""
 heroWidth: 1440

@@ -4,7 +4,7 @@ description: "Use Jevitate to investigate a misleading success message, inspect 
 pubDate: 2026-09-22
 updatedDate: 2026-10-16
 tags: [Jevitate, browser testing, regression testing]
-heroImage: /assets/blog/jevitate-launch-banner.svg
+heroImage: /assets/blog/jevitate-launch-banner-v2.svg
 heroDecorative: true
 heroAlt: ""
 heroWidth: 1440
