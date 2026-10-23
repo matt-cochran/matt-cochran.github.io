@@ -1,7 +1,7 @@
 ---
 title: "Give your AI agent a lab notebook it can't quietly rewrite"
 description: "How scientific-process keeps an agent's hypotheses, experiments and verdicts in an append-only record you can check later, with any model doing the work."
-pubDate: 2026-10-23
+pubDate: 2026-10-29
 draft: false
 tags: [scientific-process, AI agents, debugging, experimentation]
 heroImage: /assets/blog/scientific-process-lab-notebook-banner.svg

@@ -147,7 +147,7 @@ If that number comes back higher than one, you've just saved yourself a feature.
 
 ## The tools I used
 
-The heart of this was [scientific-process](https://github.com/praxec/scientific-process), the scientific-method tool in Junior's toolbelt. It's an open-source lab notebook we build as part of Praxec: every hypothesis, experiment, observation and verdict goes into an append-only log, so the reasoning survives long after the chat that produced it. It can also ask Jev for a second opinion, such as whether a verdict is backed by its observations. I wrote up [how it works](/blog/scientific-process-lab-notebook/) separately.
+The heart of this was [scientific-process](https://github.com/praxec/scientific-process), the scientific-method tool in Junior's toolbelt. It's an open-source lab notebook we build as part of Praxec: every hypothesis, experiment, observation and verdict goes into an append-only log, so the reasoning survives long after the chat that produced it. It can also ask Jev for a second opinion, such as whether a verdict is backed by its observations. Its [skills](https://github.com/praxec/scientific-process/tree/main/skills) show the whole loop.
 
 Nothing about it is tied to one model. A frontier model drove this investigation, but a cheaper model, or you by hand, could make the same calls and get the same record.
 
