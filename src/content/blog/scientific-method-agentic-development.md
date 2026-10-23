@@ -1,8 +1,8 @@
 ---
 title: "Your coding agent's \"done\" is a hypothesis. Treat it like one."
 description: "Five habits from the scientific method that catch what passing tests miss when AI agents write your code."
-pubDate: 2026-10-23
-draft: true
+pubDate: 2026-10-27
+draft: false
 tags: [AI agents, software development, testing, experimentation]
 heroImage: /assets/blog/scientific-method-agentic-development-banner.svg
 heroDecorative: true
@@ -87,7 +87,7 @@ Every check you add is itself a claim, that it catches the problem without drown
 
 All five habits share a weakness: they live in conversation, and conversations get compacted, summarized and lost.
 
-Write the claims, predictions, results and verdicts somewhere durable. I use [scientific-process](https://github.com/praxec/scientific-process), an open-source lab notebook we build that any model can drive. I wrote up [how it works](/blog/scientific-process-lab-notebook/). A plain markdown file in the repository works too. What matters is that the prediction is written before the result, and that nobody, human or agent, quietly edits the page afterward.
+Write the claims, predictions, results and verdicts somewhere durable. I use [scientific-process](https://github.com/praxec/scientific-process), an open-source lab notebook we build that any model can drive. A plain markdown file in the repository works too. What matters is that the prediction is written before the result, and that nobody, human or agent, quietly edits the page afterward.
 
 The same habit works before you build anything. Testing a roadmap against my own run history cut one release [from 96 hours of planned work to 24](/blog/roadmap-proved-wrong/).
 
