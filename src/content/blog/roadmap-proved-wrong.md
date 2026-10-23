@@ -2,7 +2,7 @@
 title: "I tried to prove my roadmap wrong. Five of nine ideas failed."
 description: "Before you build the next round of improvements, test each idea against the history you already keep. A worked example from one release of Junior."
 pubDate: 2026-10-23
-draft: true
+draft: false
 tags: [product development, experimentation, AI agents, Junior]
 heroImage: /assets/blog/roadmap-proved-wrong-banner.svg
 heroDecorative: true

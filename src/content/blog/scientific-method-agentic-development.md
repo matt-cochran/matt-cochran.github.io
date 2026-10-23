@@ -2,7 +2,7 @@
 title: "Your coding agent's \"done\" is a hypothesis. Treat it like one."
 description: "Five habits from the scientific method that catch what passing tests miss when AI agents write your code."
 pubDate: 2026-10-23
-draft: true
+draft: false
 tags: [AI agents, software development, testing, experimentation]
 heroImage: /assets/blog/scientific-method-agentic-development-banner.svg
 heroDecorative: true
