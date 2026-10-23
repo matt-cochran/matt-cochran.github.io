@@ -4,7 +4,7 @@ description: "Before you build the next round of improvements, test each idea ag
 pubDate: 2026-10-23
 draft: false
 tags: [product development, experimentation, AI agents, Junior]
-heroImage: /assets/blog/roadmap-proved-wrong-banner.svg
+heroImage: /assets/blog/roadmap-proved-wrong-banner-v2.svg
 heroDecorative: true
 heroAlt: ""
 heroWidth: 1440

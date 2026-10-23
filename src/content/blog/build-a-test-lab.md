@@ -4,6 +4,11 @@ description: "A step-by-step guide to building a seeded-defect lab: the variants
 pubDate: 2026-10-23
 draft: false
 tags: [Jevitate, browser testing, test strategy]
+heroImage: /assets/blog/build-a-test-lab-banner.svg
+heroDecorative: true
+heroAlt: ""
+heroWidth: 1440
+heroHeight: 320
 ---
 
 You changed one line in your test tool. Now three runs fail that passed yesterday.

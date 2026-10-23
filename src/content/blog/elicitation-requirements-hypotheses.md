@@ -4,7 +4,7 @@ description: "Elicitation treats each requirement as a claim with evidence, find
 pubDate: 2026-11-12
 draft: false
 tags: [requirements, elicitation, AI agents, Junior]
-heroImage: /assets/blog/elicitation-requirements-hypotheses-banner.svg
+heroImage: /assets/blog/elicitation-requirements-hypotheses-banner-v2.svg
 heroDecorative: true
 heroAlt: ""
 heroWidth: 1440

@@ -4,7 +4,7 @@ description: "TRIZ turns a stuck engineering trade-off into a contradiction you 
 pubDate: 2026-11-06
 draft: false
 tags: [TRIZ, problem solving, engineering, AI agents]
-heroImage: /assets/blog/triz-engineering-contradictions-banner.svg
+heroImage: /assets/blog/triz-engineering-contradictions-banner-v2.svg
 heroDecorative: true
 heroAlt: ""
 heroWidth: 1440

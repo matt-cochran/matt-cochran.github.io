@@ -4,6 +4,11 @@ description: "Your test tool flags a failure, and you lose an hour proving the c
 pubDate: 2026-10-23
 draft: false
 tags: [Jevitate, browser testing, test strategy]
+heroImage: /assets/blog/test-your-testing-tool-banner.svg
+heroDecorative: true
+heroAlt: ""
+heroWidth: 1440
+heroHeight: 320
 ---
 
 It's 4:40 on a Friday. CI is red.
