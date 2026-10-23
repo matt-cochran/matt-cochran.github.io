@@ -2,7 +2,7 @@
 title: "Build a tiny lab for your test tool: 7 lessons from mine"
 description: "A step-by-step guide to building a seeded-defect lab: the variants, the answer key, the runner, the scorer, and the experiments that tell a real regression from noise."
 pubDate: 2026-10-23
-draft: true
+draft: false
 tags: [Jevitate, browser testing, test strategy]
 ---
 

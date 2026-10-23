@@ -2,7 +2,7 @@
 title: "Plant the bugs yourself: how to find out if your testing tool cries wolf"
 description: "Your test tool flags a failure, and you lose an hour proving the code works. Here's a one-afternoon way to measure how often its verdicts are right, with real numbers from mine."
 pubDate: 2026-10-23
-draft: true
+draft: false
 tags: [Jevitate, browser testing, test strategy]
 ---
 
