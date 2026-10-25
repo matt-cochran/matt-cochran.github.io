@@ -4,6 +4,25 @@ Keep one substantial article per week on cochranweb.com. Each article answers on
 
 ## Drafts and publication
 
+### Approved-only deployment
+
+The deployment workflow also requires `DAILY_PUBLISHING_ENABLED=true` and an exact
+approval entry in `publishing-approvals.json` for every due, non-draft Markdown or
+MDX article. Each entry binds the complete source file and its own SVG by normalized
+SHA256, with the owner's exact-copy/artwork approval reference. Changing either file
+invalidates that approval. A missing `draft` follows Astro's `false` default and is
+still subject to approval. Future articles and explicit drafts remain excluded.
+
+Enabling the workflow or activation variable is operational permission only. It
+does not approve copy, resolve model holds, or authorize a newsletter/social post.
+The initial manifest is empty: no current batch item is implicitly approved or
+grandfathered. A due unapproved article blocks the whole deployment so an accidental
+build cannot release it. After the gate reaches main, enable the workflow and set
+the variable; retain the empty manifest until the owner approves exact content.
+
+Run `python scripts/test_publishing.py` to verify the fictional approval fixtures;
+`python scripts/check-publishing.py` checks the actual checkout without publishing.
+
 Write Markdown in src/content/blog. Set draft: true while preparing it. Drafts and future pubDate entries produce no article route and stay out of the blog list, RSS, sitemap, and search index. Source files in a public Git repository remain public even when draft: true: keep private interviews and briefs in business-ops. Publication dates are evaluated at build time; a future article needs a new build after its date.
 
 Frontmatter accepts title, description, pubDate, updatedDate, draft, tags, heroImage, heroAlt, heroWidth, and heroHeight. Header images live under /assets/blog/ and require actual pixel dimensions. Informative images require descriptive alt text. Decorative images, including local SVG banners, use heroDecorative: true with heroAlt: "". SVG banners retain the default raster social image for sharing. A header is optional. Use a real screenshot or technical diagram inside an article when it explains the mechanism more accurately than an illustration.
