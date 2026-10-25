@@ -19,7 +19,7 @@ The better design is to preserve both kinds of evidence while asking for them at
 
 ## The hidden multiplier in a “single” test
 
-Consider a deterministic browser Journey with seven write steps. Its mutation verifier checks two failure modes for every write:
+Consider a deterministic browser Journey with six write steps. Its mutation verifier checks two failure modes for every write:
 
 1. skip the write and confirm the Journey notices;
 2. block the write and confirm the Journey notices.
@@ -27,12 +27,21 @@ Consider a deterministic browser Journey with seven write steps. Its mutation ve
 The full proof is therefore:
 
 ```text
-1 baseline replay + (7 write steps × 2 mutations) = 15 replays
+1 baseline replay + (6 write steps × 2 mutations) = 13 replays
 ```
 
-In one release investigation, each replay took roughly six to seven minutes because the application generated three design directions before the Journey refined, approved, published, and checked the result. A command that looked like one test actually represented 90–105 minutes of serial work.
+In one release investigation, those 13 planned replays took roughly 94 minutes because the application generated three design directions before the Journey refined, approved, published, and checked the result. A command that looked like one test actually represented more than an hour of serial work.
 
 The test was not exploratory. Every replay followed a deterministic plan. The delay came from **proof cardinality**: the number of executions hidden behind the command.
+
+Make that cardinality visible before execution. Jevitate now exposes the same planner its mutation proof uses without opening a browser, target, fixture, hook, or session:
+
+```bash
+jevitate journey verify r1-j-taste-live-01 --plan --json
+# 12 mutations · 38 assertion pairs · 22 assertions · minimum 13 replays
+```
+
+The plan also names each assertion paired to each mutation. That catches a final publish check accidentally attached to an earlier write before a 94-minute proof discovers the mistake.
 
 ## Ask two different questions
 
@@ -132,7 +141,7 @@ An orchestration tool can estimate expanded work generically, but it should not 
 
 Start without weakening today’s gate:
 
-1. Report the expanded replay count and estimated duration before execution.
+1. Run `journey verify --plan`; inspect its pairs, unpaired assertions, and replay floor before execution.
 2. Split baseline replay from mutation proof in CI.
 3. Bind mutation receipts to executable content and relevant contracts.
 4. Add changed-scope selection for the fast lane.
