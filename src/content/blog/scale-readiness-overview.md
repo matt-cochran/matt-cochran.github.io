@@ -2,13 +2,14 @@
 title: "Before hiring more engineers, find where delivery gets stuck"
 description: "Trace one recent feature through your team to distinguish a capacity shortage from coordination, architecture, and product-decision bottlenecks."
 pubDate: 2025-01-15
-updatedDate: 2026-10-16
+updatedDate: 2026-10-25
 tags: [engineering leadership, scale readiness, delivery]
 heroImage: /assets/blog/scale-readiness-overview-banner.svg
 heroDecorative: true
 heroAlt: ""
 heroWidth: 1440
 heroHeight: 320
+draft: false
 ---
 
 Your roadmap is slipping, and the team wants another engineer. Before opening the role, pick one recent feature and ask where it spent its time.
@@ -30,7 +31,7 @@ A small table is enough:
 | Step | What to record | Question to ask |
 | --- | --- | --- |
 | Decide the scope | Who made the decision and what remained unresolved | Did implementation start before the team agreed on the problem? |
-| Build the change | Services, repositories, and people involved | Could someone own a bounded part independently? |
+| Build the change | Systems involved and the people responsible | Could someone own a bounded part independently? |
 | Review and test | Reviewers, test access, and time waiting | What kept the work from moving forward? |
 | Release and observe | Deployment owner and evidence of the result | Could the team tell whether the change worked? |
 
@@ -54,7 +55,7 @@ For the same feature, identify the customer problem, the evidence behind its pri
 
 If the team cannot name the intended outcome, write down that gap. Agree on what you need to learn before committing to a larger version of the work.
 
-This is why I consider both engineering constraints and product evidence when assessing scale readiness. Hiring decisions depend on what work is worth doing as well as how the team can deliver it.
+Bring both questions to the hiring discussion: which work is worth doing, and what currently prevents the team from delivering it? Keep evidence for each alongside the proposed role.
 
 ## Test a smaller change before expanding it
 
@@ -63,7 +64,5 @@ Once you have a plausible constraint, choose a bounded change and decide what yo
 Keep quality checks in place. A shorter queue achieved by skipping necessary review does not answer the original question about the team's capacity.
 
 Use what you learn to decide whether to continue, change the approach, or hire for a specific responsibility. You do not need a complete organizational redesign to investigate one repeated delay.
-
-If you want help tracing those constraints across product, architecture, and delivery, the [Scale Readiness Snapshot](/snapshot/) is the starting point for my [focused diagnostic engagement](/scale-readiness/).
 
 Before your next hiring discussion, bring one feature's path to release and the point where it repeatedly stopped. Use that evidence to describe what the next person would be able to move forward.

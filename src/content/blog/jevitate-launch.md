@@ -2,22 +2,23 @@
 title: "Catch a failed save even when the page says Saved"
 description: "Use Jevitate to investigate a misleading success message, inspect browser evidence, and recheck a fix against the failure that prompted it."
 pubDate: 2026-09-22
-updatedDate: 2026-10-16
+updatedDate: 2026-10-25
 tags: [Jevitate, browser testing, regression testing]
-heroImage: /assets/blog/jevitate-launch-banner.svg
+heroImage: /assets/blog/jevitate-launch-banner-v2.svg
 heroDecorative: true
 heroAlt: ""
 heroWidth: 1440
 heroHeight: 320
+draft: false
 ---
 
 You edit a profile, click Save, and see a confirmation. You reload the page. Your old name is still there.
 
 A test that checks only for the confirmation message can miss this failure. To catch it, you need to check what happened to the request and whether the application kept the change.
 
-This is the example I use to explain [Jevitate](https://jevitate.com), the browser-testing tool I'm building. Its repository includes a deliberately broken profile form: a name containing characters outside Latin-1 makes the server return HTTP 500, but the page still says “Saved.” The form checks for 4xx errors and misses the server failure.
+The [pinned Jevitate demo](https://github.com/matt-cochran/jevitate/blob/73d164896cfc4faf001ca437bef3bf91cc317fa3/docs/demo.md) describes a deliberately broken profile form with this behavior. Its example uses a name containing characters outside Latin-1: the server returns HTTP 500, while the page displays “Saved.” This article follows that historical demo, rather than reporting a new test run.
 
-You can use that local example to follow a failure from discovery to a replayable check, without API keys.
+The pinned demo uses deterministic stand-ins for advisory model calls. Its setup and commands apply to that checkout; check your installed release before using them elsewhere.
 
 ## Decide what a successful save means
 
@@ -37,18 +38,9 @@ For your application, choose the observation that matches the user's actual goal
 
 The [source demo instructions](https://github.com/matt-cochran/jevitate/blob/73d164896cfc4faf001ca437bef3bf91cc317fa3/docs/demo.md) cover cloning the repository, building its CLI, installing Chromium, and starting the example app. They require Node.js 20 or newer and pnpm 9. Use the CLI built from that checkout so the example and its commands match.
 
-With the app running, run this from the repository root using that CLI:
+With the app running, use the adversarial exploration command in that pinned demo. It supplies the local profile URL and the saved-value invariant. Its fake-AI mode replaces advisory model calls with deterministic stand-ins while the browser still interacts with the local application.
 
-```bash
-jevitate explore --strategy adversarial \
-  --url http://127.0.0.1:5190/demo/profile \
-  --invariants apps/example-site/demo-invariants.json \
-  --fake-ai --out demo-runs
-```
-
-The adversarial strategy tries inputs and interactions such as empty values, Unicode, repeated submissions, and actions during a pending save. Here, `--fake-ai` replaces advisory model calls with deterministic stand-ins. The browser still interacts with the local application, and code evaluates the failure signals.
-
-The documented demo reports two findings: the HTTP 500 and the broken saved-value invariant. Treat those as expected results to compare with your run. If your output differs, inspect the result and environment before drawing a conclusion. An exit code of 1 from this exploration means defects were found.
+The pinned demo describes two expected findings: the HTTP 500 and the broken saved-value invariant. Treat those as expected results to compare with your run. If your output differs, inspect the result and environment before drawing a conclusion. An exit code of 1 from this exploration means defects were found.
 
 ## Inspect the failure before changing code
 
@@ -62,9 +54,7 @@ That evidence gives you a narrower debugging task: investigate the server's hand
 
 Use `verify-fix` with the result path and fingerprint from your run:
 
-```bash
-jevitate verify-fix --result <result.json> --fingerprint <fingerprint>
-```
+    jevitate verify-fix --result <result.json> --fingerprint <fingerprint>
 
 Replace the placeholders with the actual values. This command replays the finding and reports a verdict with a reason. A result can still reproduce, be fixed under the checks that ran, be intermittent, or remain inconclusive. An incomplete replay gives you no basis for declaring the bug fixed.
 
