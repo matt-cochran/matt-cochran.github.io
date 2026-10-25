@@ -1,4 +1,103 @@
 {
   "version": 1,
-  "articles": {}
+  "articles": {
+    "src/content/blog/approved-user-journeys.md": {
+      "review_reference": "Owner approval in Codex on 2026-10-25; release SHA256 460c80afee09dee38945f2ff2e3d56e8e902d0d542345c3b2a1afb36fba43723; includes exact copy/artwork and remaining Jev holds. Private record: matt-cochran-products/business-ops PR 223, release-review.json at 2682d972688c9edd1d1e4f2093dfa22813e4cfea.",
+      "sha256": {
+        "src/content/blog/approved-user-journeys.md": "9df5ffe9880dd8457472075f4f2cdd5b0766df17915f831f20a3af2fc2dba3bd",
+        "public/assets/blog/jevitate-journey-banner.svg": "e85ff57ce4d7ef5364c65b7c946efbc5d8df78e8d4947bfe0a21aa0bf89b93ad"
+      }
+    },
+    "src/content/blog/build-a-test-lab.md": {
+      "review_reference": "Owner approval in Codex on 2026-10-25; release SHA256 460c80afee09dee38945f2ff2e3d56e8e902d0d542345c3b2a1afb36fba43723; includes exact copy/artwork and remaining Jev holds. Private record: matt-cochran-products/business-ops PR 223, release-review.json at 2682d972688c9edd1d1e4f2093dfa22813e4cfea.",
+      "sha256": {
+        "src/content/blog/build-a-test-lab.md": "80b769c1e3cb9a167eeaccb08f65751a021fc49eb8b55de55e88711bd026fac0",
+        "public/assets/blog/build-a-test-lab-banner.svg": "4e5e8a526070d08ca5f43291c5433eaba5b1f3559cc6e6c54a663b850332ddf6"
+      }
+    },
+    "src/content/blog/cpm-critical-path-planning.md": {
+      "review_reference": "Owner approval in Codex on 2026-10-25; release SHA256 460c80afee09dee38945f2ff2e3d56e8e902d0d542345c3b2a1afb36fba43723; includes exact copy/artwork and remaining Jev holds. Private record: matt-cochran-products/business-ops PR 223, release-review.json at 2682d972688c9edd1d1e4f2093dfa22813e4cfea.",
+      "sha256": {
+        "src/content/blog/cpm-critical-path-planning.md": "907c2d0d43ea0396ebfe033a7cd193650aa0d3f89b26e3c63bf51dcc14ec2622",
+        "public/assets/blog/cpm-critical-path-planning-banner-v2.svg": "a4edf823dbbf6c4e5f348537f57c0ae782d6457244e3fa2ed95ae1ce9f5206fc"
+      }
+    },
+    "src/content/blog/crossmatrix-traceability.md": {
+      "review_reference": "Owner approval in Codex on 2026-10-25; release SHA256 460c80afee09dee38945f2ff2e3d56e8e902d0d542345c3b2a1afb36fba43723; includes exact copy/artwork and remaining Jev holds. Private record: matt-cochran-products/business-ops PR 223, release-review.json at 2682d972688c9edd1d1e4f2093dfa22813e4cfea.",
+      "sha256": {
+        "src/content/blog/crossmatrix-traceability.md": "aecf8cd96213202c13f967dec00f46a27d84044ae71c95f4d5cd13e6e796fa72",
+        "public/assets/blog/crossmatrix-traceability-banner-v2.svg": "c2cab22df201ba5184dd3edfa589c59af8bac90f50916a1c9e3ab8aed54cbfed"
+      }
+    },
+    "src/content/blog/elicitation-requirements-hypotheses.md": {
+      "review_reference": "Owner approval in Codex on 2026-10-25; release SHA256 460c80afee09dee38945f2ff2e3d56e8e902d0d542345c3b2a1afb36fba43723; includes exact copy/artwork and remaining Jev holds. Private record: matt-cochran-products/business-ops PR 223, release-review.json at 2682d972688c9edd1d1e4f2093dfa22813e4cfea.",
+      "sha256": {
+        "src/content/blog/elicitation-requirements-hypotheses.md": "471e73205591807c001947b9870def20768e301ae11e65034cf3d51295a764c3",
+        "public/assets/blog/elicitation-requirements-hypotheses-banner-v2.svg": "8174bd535e1d3972b3548c8499b0bdc39ac9adbc4c4531b8992191291ee929de"
+      }
+    },
+    "src/content/blog/fmeca-software-risk.md": {
+      "review_reference": "Owner approval in Codex on 2026-10-25; release SHA256 460c80afee09dee38945f2ff2e3d56e8e902d0d542345c3b2a1afb36fba43723; includes exact copy/artwork and remaining Jev holds. Private record: matt-cochran-products/business-ops PR 223, release-review.json at 2682d972688c9edd1d1e4f2093dfa22813e4cfea.",
+      "sha256": {
+        "src/content/blog/fmeca-software-risk.md": "209ec750305bb0aa19009f5950b3f0fd34621e97df8e4d9093702a1ac9df84c4",
+        "public/assets/blog/fmeca-software-risk-banner-v2.svg": "54bf7c2c3e3ea9b0ff7a5269094509d4c3a605e97d3a67ac2509deae5779b876"
+      }
+    },
+    "src/content/blog/jevitate-launch.md": {
+      "review_reference": "Owner approval in Codex on 2026-10-25; release SHA256 460c80afee09dee38945f2ff2e3d56e8e902d0d542345c3b2a1afb36fba43723; includes exact copy/artwork and remaining Jev holds. Private record: matt-cochran-products/business-ops PR 223, release-review.json at 2682d972688c9edd1d1e4f2093dfa22813e4cfea.",
+      "sha256": {
+        "src/content/blog/jevitate-launch.md": "4d8236014404ffee41ef7eeff97b8f64fce4753a7a5f81a866577c93555eb89c",
+        "public/assets/blog/jevitate-launch-banner-v2.svg": "50b8dec64a221b93d0e7ed2e502d98d837dcb710c55cc77285eee3208c3dd79d"
+      }
+    },
+    "src/content/blog/junior-introduction.md": {
+      "review_reference": "Owner approval in Codex on 2026-10-25; release SHA256 460c80afee09dee38945f2ff2e3d56e8e902d0d542345c3b2a1afb36fba43723; includes exact copy/artwork and remaining Jev holds. Private record: matt-cochran-products/business-ops PR 223, release-review.json at 2682d972688c9edd1d1e4f2093dfa22813e4cfea.",
+      "sha256": {
+        "src/content/blog/junior-introduction.md": "18adf81a37ade55f1baf0298d5d1275901ff80636bf9810feed2442a50897d08",
+        "public/assets/blog/junior-introduction-banner.svg": "1846e6bdaec0a6ef853f22c52022cb954af092b8400aa58c123382f9001ab853"
+      }
+    },
+    "src/content/blog/roadmap-proved-wrong.md": {
+      "review_reference": "Owner approval in Codex on 2026-10-25; release SHA256 460c80afee09dee38945f2ff2e3d56e8e902d0d542345c3b2a1afb36fba43723; includes exact copy/artwork and remaining Jev holds. Private record: matt-cochran-products/business-ops PR 223, release-review.json at 2682d972688c9edd1d1e4f2093dfa22813e4cfea.",
+      "sha256": {
+        "src/content/blog/roadmap-proved-wrong.md": "b06a0f7a6f025c7f276b65ac91cdcd3f727750e85b5258aa00aa284ea7a35cc9",
+        "public/assets/blog/roadmap-proved-wrong-banner-v2.svg": "f6be3b45decc0a21390ecef975483dbbbebf4e85521d6367682af47a9e963ddf"
+      }
+    },
+    "src/content/blog/scale-readiness-overview.md": {
+      "review_reference": "Owner approval in Codex on 2026-10-25; release SHA256 460c80afee09dee38945f2ff2e3d56e8e902d0d542345c3b2a1afb36fba43723; includes exact copy/artwork and remaining Jev holds. Private record: matt-cochran-products/business-ops PR 223, release-review.json at 2682d972688c9edd1d1e4f2093dfa22813e4cfea.",
+      "sha256": {
+        "src/content/blog/scale-readiness-overview.md": "5b72a315caa14508b91e923c72d6ab5249e0333f1de30f09c25536732d5a0c0d",
+        "public/assets/blog/scale-readiness-overview-banner.svg": "2c9bb1de4d2e5aadfdee01d7ae16500bbd2f9ae96ea5b7f120e9d40d7b921f7a"
+      }
+    },
+    "src/content/blog/scientific-method-agentic-development.md": {
+      "review_reference": "Owner approval in Codex on 2026-10-25; release SHA256 460c80afee09dee38945f2ff2e3d56e8e902d0d542345c3b2a1afb36fba43723; includes exact copy/artwork and remaining Jev holds. Private record: matt-cochran-products/business-ops PR 223, release-review.json at 2682d972688c9edd1d1e4f2093dfa22813e4cfea.",
+      "sha256": {
+        "src/content/blog/scientific-method-agentic-development.md": "ca5135df8d030b501ec52e1f6c7e57a7934823292c49cb37b9aa3efdc7766166",
+        "public/assets/blog/scientific-method-agentic-development-banner-v2.svg": "f885e88348f41943fdfc8ba90a962eeaba94e2b83d234c5c24bcb83922e96034"
+      }
+    },
+    "src/content/blog/scientific-process-lab-notebook.md": {
+      "review_reference": "Owner approval in Codex on 2026-10-25; release SHA256 460c80afee09dee38945f2ff2e3d56e8e902d0d542345c3b2a1afb36fba43723; includes exact copy/artwork and remaining Jev holds. Private record: matt-cochran-products/business-ops PR 223, release-review.json at 2682d972688c9edd1d1e4f2093dfa22813e4cfea.",
+      "sha256": {
+        "src/content/blog/scientific-process-lab-notebook.md": "769900b79a3f84cef946e572df4efe60f94186ee7925c46fc2b617caeb32568b",
+        "public/assets/blog/scientific-process-lab-notebook-banner.svg": "01671a30b7bc7763e6fcae63f3388dede621495a36a96e4d8f3e738739f2992f"
+      }
+    },
+    "src/content/blog/test-your-testing-tool.md": {
+      "review_reference": "Owner approval in Codex on 2026-10-25; release SHA256 460c80afee09dee38945f2ff2e3d56e8e902d0d542345c3b2a1afb36fba43723; includes exact copy/artwork and remaining Jev holds. Private record: matt-cochran-products/business-ops PR 223, release-review.json at 2682d972688c9edd1d1e4f2093dfa22813e4cfea.",
+      "sha256": {
+        "src/content/blog/test-your-testing-tool.md": "7b4f4a4e5f803c441057df4f94231d54bb7862d28a028579fc924d2d32b2eb57",
+        "public/assets/blog/test-your-testing-tool-banner.svg": "911ed6e2c107fd8b5d50e7e13ca8ba3e522a917e2f8db99390cc5acea8a44672"
+      }
+    },
+    "src/content/blog/triz-engineering-contradictions.md": {
+      "review_reference": "Owner approval in Codex on 2026-10-25; release SHA256 460c80afee09dee38945f2ff2e3d56e8e902d0d542345c3b2a1afb36fba43723; includes exact copy/artwork and remaining Jev holds. Private record: matt-cochran-products/business-ops PR 223, release-review.json at 2682d972688c9edd1d1e4f2093dfa22813e4cfea.",
+      "sha256": {
+        "src/content/blog/triz-engineering-contradictions.md": "54800c6abb73575e1f7e51a89fd88a5ac0e55752070ba91968d052f85ad36bed",
+        "public/assets/blog/triz-engineering-contradictions-banner-v2.svg": "06fab4b920cf2315956fb4e1f5038b4254000d581cac806bd0b9968ffcd01e7f"
+      }
+    }
+  }
 }

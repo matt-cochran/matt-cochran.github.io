@@ -1,103 +1,72 @@
 ---
 title: "Your coding agent's \"done\" is a hypothesis. Treat it like one."
-description: "Five habits from the scientific method that catch what passing tests miss when AI agents write your code."
+description: "Use a webhook-retry example to separate the agent’s completion claim, the expected behavior and the evidence needed to accept it."
+updatedDate: 2026-10-25
 pubDate: 2026-10-27
 draft: false
 tags: [AI agents, software development, testing, experimentation]
-heroImage: /assets/blog/scientific-method-agentic-development-banner.svg
+heroImage: /assets/blog/scientific-method-agentic-development-banner-v2.svg
 heroDecorative: true
 heroAlt: ""
 heroWidth: 1440
 heroHeight: 320
 ---
 
-The agent finishes. Every test is green. The summary says the feature works and is ready for review.
+Suppose you ask a coding agent to add webhook retries. Its tests pass, but they cover only a failed response followed by a successful one. Should you accept the change?
 
-You merge it. Two days later someone hits the case nobody wrote down, and it falls over.
+For an engineer reviewing the handoff, the missing question is what the tests leave undecided. If the receiver stores a delivery but its acknowledgement is lost, a retry could deliver the event again. You need an agreed outcome for that case before calling the feature complete.
 
-Nothing lied to you. The agent did what it was asked, and the tests checked what they were told to check. The gap was somewhere else, in the space between what you meant and what you wrote.
+This hypothetical example shows how to separate a claim from the evidence supplied for it.
 
-That gap gets wider as agents get faster. Generating code is cheap now. Knowing whether the code is right is not. The good news is that science has been working on exactly this problem for a few hundred years, and its habits transfer well.
 
-## Passing tests prove less than they seem to
-
-Here's the uncomfortable evidence from my own work.
-
-I run [Junior](https://github.com/matt-cochran/junior), a tool where a frontier model manages and cheaper open-weight models write the code. Over 125 recorded runs, three came back marked ready for review and later needed repair.
-
-In all three, **every written acceptance criterion had passed, with real tests.** A model judging the finished work passed all three too, with confidence between 0.67 and 0.90.
-
-The defects were in the request:
-
-- One task never said where a config file lived, or that a broken file should be refused.
-- One assumed another tool installed files in a place it didn't.
-- One was tested against a fake server whose responses didn't match the real one.
-
-Checking those runs harder would not have helped. The checks were answering a different question from the one that mattered.
-
-So treat "done" the way a scientist treats a result: as a claim with some evidence behind it, not as a fact. Then go looking for the evidence that's missing.
-
-Five habits make that practical.
 
 ## 1. Name the claim before you weigh the evidence
 
 "All tests pass" is evidence. It isn't the claim.
 
-The claim is something like: *the webhook sender retries failed deliveries, and a delivery is never sent twice.* Write that sentence down, separately from the test output.
+The claim is something like: *the sender retries a failed acknowledgement, and the receiver processes each event at most once.* Write that sentence down, separately from the test output.
 
-Now you can ask the useful question: **does this evidence support this claim, or a smaller one?** Passing tests usually support "the code meets the criteria I wrote." That's narrower than "the code does what I meant," and the distance between the two is where your bugs live.
+Now compare the claim with what each assertion observes. A retry assertion can establish that another request was attempted. You need a separate observation of receiver behavior to establish whether the event was processed again.
 
 ## 2. Write the prediction first
 
-A test written after the code tends to confirm the code. That's not cheating. It's how attention works: you test what you built.
+Before inspecting a passing result, write what a failing result would look like. That gives you a reference independent of the outcome you are about to see.
 
-So before the agent runs anything, ask it what it expects to see if the change is right, **and what it would see if it were wrong.** A prediction you can't fail isn't a test. It's a ceremony.
+So before the agent runs anything, ask it what it expects to see if the change is right, **and what it would see if it were wrong.** Make the prediction specific enough that an observation can disagree with it.
 
-This is the oldest rule in the book. Feynman's version: "The first principle is that you must not fool yourself—and you are the easiest person to fool." ([Feynman, 1974](https://calteches.library.caltech.edu/51/2/CargoCult.htm)) An agent optimizing for your green checkmarks fools you without meaning to.
+For the duplicate-delivery case, specify how you would distinguish a safely handled retry from the same event being processed twice.
 
 ## 3. Look upstream, at the request
 
-If the failures start in the request, that's where the cheapest fix is too.
+For the webhook example, “retry failures” leaves several choices open: which failures, how many attempts, and what the receiver should do with duplicates.
 
-Junior already asks Jev, a small classifier model, how clear each task description is before a worker starts. All three of the false successes scored below the threshold for clear. Across the run history, 18% of the tasks that scored that low had a problem, against 4% of the tasks that didn't.
+Write down which decisions the agent had to infer. Ask the owner about behavior that changes the public contract. Additional checks can test a decision once it exists; they cannot decide what the owner intended.
 
-Then I tested whether asking questions would have helped. A fresh agent, with no hindsight and only the repository, answered the generic clarifying questions for each of the three tasks. It named the kind of gap that later needed repair in all three cases, and the exact defects in two.
+Do this proportionately. A request with a clear contract may need no additional interview. A retry change that affects external systems needs more care than a local rename.
 
-Three cases is a small sample, so hold that loosely. But the direction is clear: **a few minutes of questions before the work beats a repair after it.** Make your agent ask when the request is thin, and answer with access to the code, not from memory.
+## 4. Check the assumptions in your fixtures
 
-## 4. Test against reality, not your fixtures
+A fake receiver that always acknowledges immediately cannot exercise a lost acknowledgement. Add a case where the event is stored and the response is interrupted. Check whether the sender's retry and the receiver's duplicate handling produce the intended outcome.
 
-One of the three failures passed every test because the tests used a fake server, and the fake was wrong.
+When an integration permits it, compare representative real responses with your fixture. Remove secrets and personal data before retaining recordings. A recording is evidence about that interaction, not a promise that every future version behaves identically.
 
-Fakes are hypotheses too. A mock says "the real thing responds like this." When nobody checks that against the real thing, the whole test suite rests on an assumption.
+## 5. Test the check itself
 
-The fix is boring and it works: **record real responses and test against the recordings.** Re-record when the dependency changes. Junior now ships recorded responses for the tools it talks to and reports when it meets a version it hasn't recorded.
+Before trusting a new gate, try a case it should reject and one it should allow. For example, a duplicate-handling check should detect the same event being processed twice while allowing two genuinely different events.
 
-## 5. Measure your measurements
-
-This one caught me out after I'd made all the changes above.
-
-I built a gate that stops unclear tasks before a worker starts. It passed every test I wrote. Then I ran it against the recorded history: it would have stopped **121 of 122 real runs.**
-
-The tests checked that the gate fired when it should. Nothing checked how often it fired. One query against real data found it, and one condition fixed it.
-
-Every check you add is itself a claim, that it catches the problem without drowning you in false alarms. Run new checks against your history before you trust them.
+Keep inconclusive runs separate. If the receiver is unavailable, the test has not established correct duplicate handling. A green result created by skipping that check answers a different question.
 
 ## Keep the record outside the chat
 
-All five habits share a weakness: they live in conversation, and conversations get compacted, summarized and lost.
+Keep the reasoning outside the conversation so another reviewer can inspect it later.
 
-Write the claims, predictions, results and verdicts somewhere durable. I use [scientific-process](https://github.com/praxec/scientific-process), an open-source lab notebook we build that any model can drive. A plain markdown file in the repository works too. What matters is that the prediction is written before the result, and that nobody, human or agent, quietly edits the page afterward.
+Write the claim with its prediction and the resulting verdict in a versioned record. The [scientific-process README](https://github.com/praxec/scientific-process) describes an append-only record for this kind of work. A plain Markdown file works too. Record corrections explicitly and use version control to make changes inspectable.
 
-The same habit works before you build anything. Testing a roadmap against my own run history cut one release [from 96 hours of planned work to 24](/blog/roadmap-proved-wrong/).
+The same habit works before implementation: examine the premise behind a proposed feature, as in [testing a roadmap assumption](/blog/roadmap-proved-wrong/).
 
-## What this doesn't solve
+## Keep the conclusion within the test
 
-This isn't a guarantee. You'll still ship bugs.
-
-Some failures only show up in production. Some predictions are wrong in ways no one could have known. And every habit here costs time, so you'll want to spend it where a miss is expensive, not on every one-line change.
-
-What it changes is how you get surprised. Instead of "the agent said it was done," you get "we predicted X, saw Y, and here's the record." That's a surprise you can learn from.
+The lost-acknowledgement case checks one failure mode. It does not establish correct behavior for every receiver, storage failure or future version. Keep the tested assumptions with the result, then choose further checks in proportion to the consequences of a missed defect.
 
 ## Try it on the next handoff
 
@@ -107,13 +76,11 @@ When your agent says it's done, ask it three questions before you read the diff:
 2. What would you have seen if it didn't?
 3. Which part of the request did you have to guess?
 
-The third answer is where your next bug is hiding. Go and look there first.
+Use the third answer to choose the next check. It identifies an assumption to inspect, not proof that a defect exists.
 
----
 
 ## References
 
-1. Feynman, R. "Cargo Cult Science." Caltech commencement address, 1974. https://calteches.library.caltech.edu/51/2/CargoCult.htm
-2. ADR 0009: Plan contracts go through the clarity gate before delegation. https://github.com/matt-cochran/junior/blob/main/docs/adr/0009-contract-clarity-before-delegation.md
-3. Junior. https://github.com/matt-cochran/junior
-4. scientific-process. https://github.com/praxec/scientific-process
+1. ADR 0009: Plan contracts go through the clarity gate before delegation. https://github.com/matt-cochran/junior/blob/515139f719b76ef8821b6018f77c22aea47dc544/docs/adr/0009-contract-clarity-before-delegation.md
+2. Junior. https://github.com/matt-cochran/junior
+3. scientific-process. https://github.com/praxec/scientific-process
