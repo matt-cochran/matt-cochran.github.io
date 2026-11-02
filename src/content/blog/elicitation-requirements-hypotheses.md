@@ -1,98 +1,49 @@
 ---
-title: "Every requirement is a guess until something tries to break it"
-description: "Elicitation treats each requirement as a claim with evidence, finds contradictions early and tells you when a spec is ready to build."
+title: "Resolve conflicting requirements before implementation"
+description: "Use an export-permissions example to separate assumptions, existing behavior and the policy decision someone must make."
+updatedDate: 2026-10-25
 pubDate: 2026-11-12
 draft: false
 tags: [requirements, elicitation, AI agents, Junior]
-heroImage: /assets/blog/elicitation-requirements-hypotheses-banner.svg
+heroImage: /assets/blog/elicitation-requirements-hypotheses-banner-v2.svg
 heroDecorative: true
 heroAlt: ""
 heroWidth: 1440
 heroHeight: 320
 ---
 
-You get off a call with a clear picture. You write the spec that afternoon. It reads well.
+Consider a hypothetical export feature. One participant expects exports to be restricted to administrators. Another expects any signed-in account to be able to download the same data. Both believe the specification reflects their decision.
 
-Two weeks into the build, someone says, "Wait, I thought exports were admin-only?" Somebody else was sure they weren't. Both of them were on the call.
+If you are the engineer preparing the feature, a readable spec does not resolve that disagreement. Ask who owns the access policy, record the decision and turn it into acceptance criteria before implementing either interpretation.
 
-That's the trouble with requirements. They feel like facts the moment you write them down. They're not. They're guesses about what people want, and some of them contradict each other in ways nobody notices until the code makes them collide.
+## Keep assumptions distinct from decisions
 
-You can catch most of that before anyone builds anything. The trick is to stop treating requirements as statements and start treating them as **claims you're trying to break**.
+For each access rule, record who supplied it and what authority they have to decide it. Mark unresolved assumptions explicitly. Existing behavior is another source of evidence, but it may differ from the behavior the owner wants next.
 
-## A spec reads as finished long before it is
+You are investigating whether the written requirements agree with one another and with the intended policy. Treating a requirement as a claim to examine does not mean an approved policy decision is merely a guess.
 
-Here's what a normal spec hides:
+## Keep the interview inspectable
 
-- **Which lines are confirmed and which are assumptions.** They all look the same on the page.
-- **Who said what.** "Exports are admin-only" might be the CEO's decision or a developer's guess.
-- **Contradictions.** Two sensible sentences, forty lines apart, that can't both be true.
-- **Gaps.** A must-have with no acceptance criteria, or no owner.
+The [elicitation README](https://github.com/praxec/elicitation) describes an offline engine for recording claims and evidence while the calling agent conducts an interview. It computes standing, identifies structural contradictions and supplies a readiness gate. Those features keep an interview inspectable. They do not establish that the supplied claims are correct or complete.
 
-An AI agent makes this worse, not better. Hand it a thin spec and it will fill every gap with a confident guess, and the result will read beautifully.
+You can use the same discipline with a plain document. Keep each decision with its owner, its evidence and the question that remains open.
 
-## Make every requirement earn its place
+## Resolve one export rule before building it
 
-The tool I use for this is [elicitation](https://github.com/praxec/elicitation), an open-source interview engine we build as part of Praxec. It runs no model and makes no network calls. Your agent does the talking. The tool keeps score.
+For the conflicting export rules, ask the decision owner which users should have access and under what conditions.
 
-It works like this:
+Keep the answer and its authority with the requirement. A developer's description of existing code is evidence of current behavior. A product owner's approval is evidence of the intended policy. They answer different questions; neither automatically substitutes for the other.
 
-1. **Every requirement is a claim.** "Exports are admin-only" goes in as a hypothesis, with a subject, a predicate and an object.
-2. **Evidence attaches to claims.** A person confirming it, a quote from a meeting, a line of code that already does it, or a counter-example.
-3. **Standing is computed.** Each claim is `open`, `challenged`, `withstood` or `disproven`, worked out from the evidence log. Nobody gets to mark their own claim as settled.
-4. **Contradictions are detected structurally.** Two claims that can't both hold get flagged, with a severity.
-5. **The next question is ranked.** `question.next` returns the single highest-leverage thing to ask, so your agent spends the interview on what matters.
+If the owner chooses administrator-only access, add acceptance criteria that distinguish the alternatives: an administrator can export, and an ordinary account receives the agreed refusal. If the policy includes exceptions, write them down before calling the requirement ready.
 
-Then there's the readiness check. A spec is ready only when **all four** of these hold:
-
-- the areas you said must be covered have claims that survived;
-- no high-severity contradiction is still standing;
-- no fix for a contradiction is still open;
-- every must-have requirement has acceptance criteria and an owner.
-
-Notice the wording the tool uses. Ready means the claims **survived** the evidence you gave them. It never says they're true.
-
-## How I've used it so far
-
-I'll be honest: my real use is small so far, and the most useful lesson came from getting it wrong.
-
-**It now sits inside Junior's clarity check.** When [Junior](/blog/junior-introduction/) decides a task is unclear, it builds the clarifying questions on top of this engine. On the docs task for Junior 0.10, that meant four claims, one per acceptance criterion. I confirmed each one. One read:
-
-> Claim: CHANGELOG 0.10.0 lists each issue.
-> Evidence: "Confirmed: the 0.10.0 section names #75, #76, #78, #79 and #85."
-
-The readiness check came back with no blockers and `ready: true`. Fine, but look at what that evidence was: me, saying yes. No code was checked and nobody else was asked. The tool was right to call it ready on that evidence. Whether the evidence was enough is still my call.
-
-**And here's the scar.** When I first wired this engine into Junior, an agent built the integration against a fake version of the tool's responses. The fake assumed you could call `question.next` repeatedly to collect a batch of questions. Every test passed. The run came back marked ready for review.
-
-Run against the real server, it produced **zero questions.** The real `question.next` returns one top question and gives you the same one every time you ask. The batch has to be built from the full list of open signals instead.
-
-So the tool designed to catch untested assumptions was integrated on an untested assumption. The fix was boring: read the real response shape, and record real responses for the tests. Junior has done that for every companion tool since. I wrote more about that pattern in [Your coding agent's "done" is a hypothesis](/blog/scientific-method-agentic-development/).
+The tool can keep these claims and contradictions visible. The people responsible for the policy still decide which rule should hold. A computed readiness result means the supplied evidence satisfies the configured gate, not that every user need has been discovered.
 
 ## What it won't do for you
 
 **It can't make up for weak claims.** If your agent writes vague claims, you get vague claims with standings. The quality of the interview still depends on the questions.
 
-**Names must match exactly.** The engine matches subjects and predicates by their exact ids. If your agent calls the same thing "exports" in one claim and "export-feature" in another, they're two different things.
+**Inspect what readiness means.** A positive answer from a participant establishes what they said. It does not establish that they own the decision or that the implementation matches it. Review those distinctions before relying on a readiness result.
 
-**One question at a time.** That's deliberate, because it keeps you on the most important question. But if you want a batch, building it is your job.
-
-**And "ready" is only as strong as the evidence.** A spec where every claim is backed by someone saying yes is ready in the tool's eyes, and fragile in reality.
-
-## Set it up
-
-It ships as an npm launcher, a Rust crate and prebuilt binaries:
-
-```sh
-npx -y @matthew-cochran/elicitation
-```
-
-As an MCP server, point your client at the same command:
-
-```json
-{"command": "npx", "args": ["-y", "@matthew-cochran/elicitation"]}
-```
-
-Install the interview skills with `elicitation skills install --target claude --dir <path>`. With Cargo, install `eliciter`, since another project owns the `elicitation` crate name. If you use Junior, it's already wired in, and its `discover` workflow runs a full interview and writes the result as a report.
 
 ## Break your next requirement before your agent builds it
 
@@ -100,12 +51,9 @@ Take the spec for whatever you're building next. Pick the three sentences everyo
 
 For each one, ask: who confirmed this, and what would prove it wrong?
 
-If the answer is "nobody" and "I don't know", you've found the requirement that's going to collide in week two. Better to find it now, while it's a sentence and not a migration.
+If the answer is "nobody" and "I don't know", you have an unresolved assumption to investigate before implementation. Write the answer into the requirement so the next person does not have to reconstruct the discussion.
 
----
 
 ## References
 
 1. elicitation source, specification and skills. https://github.com/praxec/elicitation
-2. `@matthew-cochran/elicitation` on npm. https://www.npmjs.com/package/@matthew-cochran/elicitation
-3. `eliciter` on crates.io. https://crates.io/crates/eliciter
