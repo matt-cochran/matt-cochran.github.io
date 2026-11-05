@@ -4,6 +4,10 @@ import {mkdtemp,readFile,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';import {join} from 'node:path';
 import {renderBanner,STYLE} from './banner-style.mjs';
 import {prepareArticle} from './article.mjs';
+import {drawingFingerprint} from './artwork-identity.mjs';
+test('each motif has substantially more than the old 41 drawing variants',()=>{
+ for(const motif of STYLE.motifs)assert.equal(new Set(Array.from({length:256},(_,i)=>drawingFingerprint(renderBanner('article-'+i,motif)))).size,256);
+});
 test('all motifs keep the approved palette, dimensions and offline SVG constraints',()=>{
   for(const motif of STYLE.motifs) {const svg=renderBanner('example',motif);assert.match(svg,/viewBox="0 0 1440 320"/);assert.ok(!/<(?:script|text|image|foreignObject)\b|\bon\w+=|\bhref=/i.test(svg));assert.equal(svg,renderBanner('example',motif));assert.notEqual(svg,renderBanner('another-example',motif));}
   assert.throws(()=>renderBanner('../escape'));assert.throws(()=>renderBanner('example','unknown'));

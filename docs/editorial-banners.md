@@ -19,7 +19,9 @@ Use generous empty space. Main strokes are approximately 2 to 3 units; secondary
 | handoffs | Delegation, bounded tasks, and coordination |
 | layers | Configuration, secret delivery, and operational boundaries |
 
-Use the same palette and density across motifs. The article slug supplies deterministic positional variation, so a rerun produces the same artwork and a new article gets a distinct arrangement. Review the result for relevance instead of selecting a motif solely from a product name.
+Use the same palette and density across motifs. Generator v2 (2026-10-23) uses the full article hash to vary several coordinates, counts and proportions independently; v1 used only 41 horizontal shifts. A rerun is stable. Choose the motif from the reader problem and inspect relevance; a different seed alone does not prove a meaningful custom design.
+
+`npm run check:artwork` runs before builds. It rejects missing SVGs, shared asset paths, equivalent drawings under different filenames and identical rendered thumbnails. The pinned Sharp renderer compares visible output, so comment or markup changes cannot disguise a copied image. Review a contact sheet for near-duplicates and semantic fit; exact-image checks cannot make that judgment. Preserve existing reviewed banners. Generation never runs during a build.
 
 ## Generate with the article
 

@@ -7,12 +7,14 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && pagefind --site dist",
+    "build": "npm run check:artwork && astro build && pagefind --site dist",
     "preview": "astro preview",
     "image:header": "node scripts/header-image.mjs",
-    "test:editorial": "node --test scripts/header-image.test.mjs scripts/publishing.test.mjs scripts/banner.test.mjs",
+    "test:editorial": "node --test scripts/header-image.test.mjs scripts/publishing.test.mjs scripts/banner.test.mjs scripts/artwork-identity.test.mjs",
     "article:new": "node scripts/article.mjs new",
-    "article:banner": "node scripts/article.mjs banner"
+    "article:banner": "node scripts/article.mjs banner",
+    "check:artwork": "node scripts/artwork-identity.mjs",
+    "test:artwork": "node --test scripts/banner.test.mjs scripts/artwork-identity.test.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",
@@ -23,7 +25,8 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.20",
-    "pagefind": "^1.5.2"
+    "pagefind": "^1.5.2",
+    "sharp": "0.35.5"
   },
   "overrides": {
     "@tailwindcss/typography": {

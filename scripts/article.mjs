@@ -4,7 +4,7 @@ import {fileURLToPath} from 'node:url';
 import {renderBanner,STYLE} from './banner-style.mjs';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 
-export async function prepareArticle({mode,slug,title,description,motif='branches',outputRoot=root}) {
+export async function prepareArticle({mode,slug,title,description,motif,outputRoot=root}) {
   const svg=renderBanner(slug,motif);
   if (!['new','banner'].includes(mode)) throw Error('Use new or banner.');
   const article=resolve(outputRoot,'src/content/blog',slug+'.md');
@@ -12,6 +12,7 @@ export async function prepareArticle({mode,slug,title,description,motif='branche
   let text;
   const header=`heroImage: /assets/blog/${slug}-banner.svg\nheroDecorative: true\nheroAlt: ""\nheroWidth: ${STYLE.width}\nheroHeight: ${STYLE.height}\n`;
   if(mode==='new') {
+    if(!motif) throw Error('Choose --motif from the article problem.');
     if(!title?.trim()||!description?.trim()) throw Error('A new article needs --title and --description.');
     try {await access(article);throw Error('Article exists; nothing changed.');} catch(e) {if(e.code!=='ENOENT') throw e;}
     const date=new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
