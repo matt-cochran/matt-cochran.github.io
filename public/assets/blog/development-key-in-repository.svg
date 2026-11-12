@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 420" role="img" aria-labelledby="title">
+  <title id="title">A sealed development key goes to the app while a blank settings card stays in the repository</title>
+  <rect width="1440" height="420" fill="#122430"/>
+  <path d="M145 333h1150" stroke="#6c8794" stroke-width="4"/>
+  <path d="M205 175h140l30 33h151v108H205z" fill="#2c525c" stroke="#a5e6d4" stroke-width="4"/>
+  <path d="M250 127h206v108H250z" fill="#dceee4"/>
+  <path d="M283 159h133m-133 25h89" stroke="#557d7d" stroke-width="8" stroke-linecap="round"/>
+  <path d="M205 224h321v92H205z" fill="#38746f"/>
+  <rect x="936" y="105" width="298" height="210" rx="17" fill="#233d4a" stroke="#8fb7c0" stroke-width="5"/>
+  <path d="M1015 175h139m-139 20h139" stroke="#abc8c9" stroke-width="5" stroke-linecap="round"/>
+  <rect x="678" y="191" width="148" height="88" rx="8" fill="#ecad63"/>
+  <path d="m681 195 71 51 71-51m-22 40 83-38" fill="none" stroke="#492e24" stroke-width="4"/>
+  <path d="M843 217h70m-20-14 20 14-20 14" fill="none" stroke="#ecad63" stroke-width="5" stroke-linecap="round"/>
+</svg>

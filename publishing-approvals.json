@@ -98,6 +98,13 @@
         "src/content/blog/triz-engineering-contradictions.md": "54800c6abb73575e1f7e51a89fd88a5ac0e55752070ba91968d052f85ad36bed",
         "public/assets/blog/triz-engineering-contradictions-banner-v2.svg": "06fab4b920cf2315956fb4e1f5038b4254000d581cac806bd0b9968ffcd01e7f"
       }
+    },
+    "src/content/blog/development-key-in-repository.md": {
+      "review_reference": "Owner-approved November 16 editorial release 7950391372343674d6524aaf43b33f237dddec8b0680e8b196a3fbaacab710eb; owner resolved documented human-review holds.",
+      "sha256": {
+        "src/content/blog/development-key-in-repository.md": "faa11c3443aed548585f65d5dbdaedc0908a6be7282d696d539a18246f1d65d3",
+        "public/assets/blog/development-key-in-repository.svg": "693850dfbd912ca7f2c8f6274578a7084732e3ad4eab778c2a80d4de688eb0b3"
+      }
     }
   }
 }
